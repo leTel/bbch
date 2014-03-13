@@ -1,0 +1,142 @@
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        {% bootstrap_css %}
+        <link rel="stylesheet" href="{% static "css/bootstrap-flat.css" %}" type="text/css"/>
+        <link rel="stylesheet" href="{% static "css/bootstrap-flat-extras.css" %}" type="text/css"/>
+    
+    <style>
+        nav li{
+            font-size: 10pt;   
+        }
+        .select-nav{
+            background-color: #f0f0f0;
+        }
+
+        nav.navbar-inverse li.dropdown:hover, li.nav-item:hover{
+            background-color: #404040;
+        }
+
+        ul.nav li.dropdown:hover > ul.dropdown-menu {
+            display: block;    
+        }
+
+        li.separator-next{
+            border-right: 1px solid grey;
+            line-height: 10px;
+        }
+
+        #language-select li a{
+            color: #202020;
+            padding-left: 15px;
+        }
+
+        #language-select li a:hover{
+            text-decoration: none;
+        }
+
+        #language-select li:hover{
+            background-color: #f0f0f0;
+        }
+
+        #alert-div{
+            overflow: auto;
+        }
+
+    </style>
+    {% block style %}{% endblock %}
+    <title>{% block title %}{% endblock %} - BBCH</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+                <div class="row">
+                    <div class="col-md-5">
+                        <ul class="nav navbar-nav">
+                            <li id="home-nav" class="nav-item"><a href="/home/"><span class="glyphicon glyphicon-home"></span> {% trans "Home" %}</a></li>
+                            <li id="map-nav" class="separator-next nav-item"><a href="https://mapsengine.google.com/map/edit?mid=ztNnXqVHx3dc.kK3MnqCB3NEo&hl=fr" target="_blank"><span class="glyphicon glyphicon-globe"></span> {% trans "Map" %}</a></li>
+                            <li id="rules-nav" class="nav-item"><a href="/rules/"><span class="glyphicon glyphicon-book"></span> {% trans "Rules" %}</a></li>
+                            <li id="skills-nav" class="separator-next nav-item"><a href="/rules/skills"><span class="glyphicon glyphicon-flash"></span> {% trans "Skills" %}</a></li>
+                            <li id="forum-nav" class="nav-item"><a href="/forum/"><span class="glyphicon glyphicon-list-alt"></span> {% trans "Forum" %}</a></li>
+                            <li id="forum-nav" class="nav-item"><a href="/admin/" target="_blank"><span class="glyphicon glyphicon-fire"></span> {% trans "Admin" %}</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="alert-div" class="col-md-4">
+                        <form class="navbar-form navbar-right">
+                            {% block alert %}{% endblock %}
+                        </form>
+                    </div>
+
+                    <div class="col-md-3">
+                        <ul class="nav navbar-nav navbar-right">
+
+                            <li id="language-select" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ LANGUAGE_CODE|upper}} <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                {% for lang in LANGUAGES %}
+                                    <li>
+                                        <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">{% csrf_token %}
+                                            <input name="next" type="hidden" value="/" />
+                                            <input type="hidden" name="language" value="{{ lang.0 }}" />
+                                            <a href="#" onclick="document.setLang{{ lang.1 }}.submit();return false;">{{ lang.0|upper }} - {{ lang.1 }}</a>
+                                        </form>
+                                    </li>
+                                {% endfor %}    
+                                </ul>
+                            </li>
+                            <li id="settings-dropdown" class="dropdown separator-next">
+                                <a href="#" class="dropdown-toggle"><span id="dropdown-text"><span class="glyphicon glyphicon-wrench"></span> </span><span class="caret"></span></a>
+                                {% block page_settings %}{% endblock %}
+                            </li>
+                            {% if loged_in %}
+                                <li id="messages-dropdown" class="dropdown">
+                                    <a href="#" class="dropdown-toggle"><span id="dropdown-text"><span class="glyphicon glyphicon-envelope"></span> </span><span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> {% trans "New message" %}</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon glyphicon-save"></span> {% trans "Inbox" %}</a></li>
+                                    </ul>
+                                </li>
+                                <li id="connected-dropdown" class="dropdown">
+                                    <a href="#" class="dropdown-toggle"><span id="dropdown-text"><span class="glyphicon glyphicon-user"></span> {{ username }} </span><span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><span class="glyphicon glyphicon-list"></span> {% trans "Edit profile" %}</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-wrench"></span> {% trans "Account preferences" %}</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/auth/logout/"><span class="glyphicon glyphicon-log-out"></span> {% trans "Logout" %}</a></li>
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li id="connection-nav"><a href="/auth/"><span id="connection-btn-text" class="button-text"><span class="glyphicon glyphicon-log-in" id="log-in-logo"></span> {% trans "Connection" %}</span></a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="content">   
+        
+	   {% block content %}{% endblock %}
+    </div>
+
+    {% bootstrap_javascript True %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        });
+    </script>
+
+    
+</body>
+</html>

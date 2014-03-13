@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block title %}Poll{% endblock %}
+
+{% block content %}
+	{% if latest_poll_list %}
+	    <ul>
+	    {% for poll in latest_poll_list %}
+	        <li><a href="{% url 'poll:detail' poll.id %}">{{ poll.question }}</a></li>
+	    {% endfor %}
+    </ul>
+	{% else %}
+	    <p>No polls are available.</p>
+	{% endif %}
+
+	{% bootstrap_javascript True %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#poll-nav').addClass("active");
+		});
+	</script>
+{% endblock %}
+

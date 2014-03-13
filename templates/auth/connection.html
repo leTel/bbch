@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+
+{% block style %}{% endblock %}
+
+{% block title%}{% trans "Connection" %}{% endblock %}
+
+{% block alert %}
+	{% if credential_error %}
+		<span class="alert alert-danger">{% trans "Incorrect username or password !" %}</span>
+	{% endif %}
+
+	{% if loged_out %}
+		<span class="alert alert-info">{% trans "You have been logged out !" %}</span>
+	{% endif %}
+
+	{% if password_confirm_error %}
+		<span class="alert alert-danger">{% trans "The passwords does not match !" %}</span>
+	{% endif %}
+
+	{% if log_required %}
+		<span class="alert alert-info">{% trans "You have to log in first !" %}</span>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-5">
+			<form action="#" method="post" class="form well error" id="connection-form">
+				{% csrf_token %}
+
+				<legend>{% trans "Connection" %}</legend>
+
+			    <div class="row">
+		    		<div class="col-md-6" id="username">
+		    			{% bootstrap_field form.username %}
+				    </div>
+				    <div class="col-md-6" id="password">
+				    	{% bootstrap_field form.password %}
+				    </div>
+				    <div class="col-md-6" id="email">
+				    	{% bootstrap_field form.email %}
+				    </div>
+				    <div class="col-md-6" id="password-check">
+				    	{% bootstrap_field form.passwordCheck %}
+				    </div>
+				</div>
+
+				<div class="row">
+		    		<div class="col-md-6" id="new_account">
+		    			{% bootstrap_field form.new_account %}
+				    </div>
+		    		<div class="col-md-6">
+		    			{% bootstrap_field form.remember %}
+				    </div>
+				</div>
+
+			    <div class="row">
+					<div class="col-md-offset-9 col-md-3">
+					    <button type="submit" class="btn btn-success" id="log-in"><span class="glyphicon glyphicon-log-in" id="log-in-logo"></span><span class="button-text"> {% trans "Log in" %}</span></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	{% bootstrap_javascript True %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$('#password-check').hide();
+			$('#email').hide();
+			$('#connection-nav').addClass("select-nav");
+			$('.alert').delay(5000).fadeOut(500);
+			
+			
+			$('#log-in').click(function() {
+				if(!($('#new_account input').is(":checked"))){
+					$('#password-check input').val($('#password input').val());
+					$('#email input').val('toto@toto.com');
+				}
+			});
+			
+
+			$('#new_account input').change(function() {
+				if($(this).is(":checked")) {
+					$('#email').show(500);
+					$('#password-check').show(500);
+					$('#log-in span.button-text').text(" {% trans "Sign up" %}")
+					$('#log-in').removeClass("btn-success").addClass("btn-primary");
+					$('#log-in span.glyphicon').removeClass("glyphicon-log-in").addClass("glyphicon-plus");
+					
+				}
+				else{
+					$('#email').hide(500);
+					$('#password-check').hide(500);
+					$('#log-in span.button-text').text(" {% trans "Log in" %}")
+					$('#log-in').removeClass("btn-primary").addClass("btn-success");
+					$('#log-in span.glyphicon').removeClass("glyphicon-plus").addClass("glyphicon-log-in");
+
+				}
+			});
+		});
+	</script>
+{% endblock %}
+
+
+

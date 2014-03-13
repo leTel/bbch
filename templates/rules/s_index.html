@@ -1,0 +1,376 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% block style %}
+{% load i18n %}
+
+
+<style>
+	
+	.skill-btn{
+		width: 100%;
+		margin-bottom: 20px;
+	}
+
+	.btn-skill-all{
+		width: 100%;
+		margin-bottom: 4px;
+	}
+
+	label{
+		font-weight: normal;
+		text-align: center;
+	}
+
+	.label-default{
+		background-color: #d0d0d0;
+		border: 1px solid #c0c0c0;
+	}
+
+	.label-white{
+		background-color: #ffffff;
+	}
+	.label-striped-out{
+		border-right: 1px solid #cccccc;
+		border-top: 1px solid #cccccc;
+		border-bottom: 1px solid #cccccc;
+		padding: 0px;
+	}
+	.label-striped-in{
+		padding: 5px;
+		margin: -5px -10px -5px -6px;
+	}
+
+	.label-default, .label-success, .label-info, .label-primary, .label-danger, .label-warning{
+		padding: 5px 10px 5px 10px;
+	}
+
+	.onoffswitch {
+	    position: relative; width: 90px;
+
+	    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+	}
+
+	.onoffswitch-checkbox {
+	    display: none;
+	}
+
+	.onoffswitch-label {
+	    display: block;
+	    overflow: hidden;
+	    cursor: pointer;
+	    border: 1px solid #999999;
+	    width: 80%;
+	}
+
+	.onoffswitch-inner {
+	    width: 200%; margin-left: -100%;
+	    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+	    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+	}
+
+	.onoffswitch-inner:before, .onoffswitch-inner:after {
+	    float: left;
+	    width: 50%;
+	    height: 30px;
+	    padding: 0;
+	    line-height: 30px;
+	    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+	    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+	}
+
+	.onoffswitch-inner:before {
+	    content: "ON";
+	    background-color: #252525;
+	    color: #b0b0b0;
+	    font-weight: normal;
+	}
+
+	.onoffswitch-inner:after {
+	    content: "OFF";
+	    padding-right: 10px;
+	    background-color: #EEEEEE;
+	    color: #999999;
+	    text-align: right;
+	    font-weight: normal;
+	}
+
+	.onoffswitch-switch {
+	    width: 12px;
+	    margin: 10px 15px 10px 0px;
+	    background: #e0e0e0;
+	    border: 1px solid #999999; 
+	    border-radius: 10px;
+	    position: absolute; top: 0; bottom: 0; right: 50px;
+	    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+	    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+	}
+
+	.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+	    margin-left: 0;
+	}
+
+	.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+	    right: 0px; 
+	}
+
+	.skill-btn:hover{
+		opacity: 1;
+		filter: alpha(opacity=100);
+	}
+
+</style>
+
+
+{% endblock %}
+
+{% block title %}{% trans "Rules" %}{% endblock %}
+
+{% block page_settings %}{% endblock %}
+
+{% block alert %}{% endblock %}
+
+{% block content %}
+
+<div class="row well">
+	<center><div class="col-md-1 col-md-offset-1">
+		<div id="btn-show-all" class="btn btn-success btn-striped btn-skill-all">{% trans "Show all" %}</div>
+		<div id="btn-hide-all" class="btn btn-danger btn-striped btn-skill-all">{% trans "Hide all" %}</div>
+	</div></center>
+	<center><div class="col-md-1">
+		<label class="label-success"><label>{% trans "General" %}</label></label>
+		<div class="onoffswitch">
+		    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-general" checked>
+		    <label class="onoffswitch-label" for="switch-general">
+		        <div class="onoffswitch-inner"></div>
+		        <div class="onoffswitch-switch"></div>
+		    </label>
+		</div>
+	</div></center>
+	<center><div class="col-md-1">
+		<label class="label-info"><label>{% trans "Agility" %}</label></label>
+		<div class="onoffswitch">
+		    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-agility" checked>
+		    <label class="onoffswitch-label" for="switch-agility">
+		        <div class="onoffswitch-inner"></div>
+		        <div class="onoffswitch-switch"></div>
+		    </label>
+		</div>
+	</div></center>
+	<center><div class="col-md-1">
+		<label class="label-primary"><label>{% trans "Passing" %}</label></label>
+		<div class="onoffswitch">
+		    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-passing" checked>
+		    <label class="onoffswitch-label" for="switch-passing">
+		        <div class="onoffswitch-inner"></div>
+		        <div class="onoffswitch-switch"></div>
+		    </label>
+		</div>
+	</div></center>
+	<center><div class="col-md-1">
+		<label class="label-danger"><label>{% trans "Strength" %}</label></label>
+		<div class="onoffswitch">
+		    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-strength" checked>
+		    <label class="onoffswitch-label" for="switch-strength">
+		        <div class="onoffswitch-inner"></div>
+		        <div class="onoffswitch-switch"></div>
+		    </label>
+		</div>
+	</div></center>
+	<center><div class="col-md-1">
+		<label class="label-warning"><label>{% trans "Mutation" %}</label></label>
+		<div class="onoffswitch">
+		    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-mutation" checked>
+		    <label class="onoffswitch-label" for="switch-mutation">
+		        <div class="onoffswitch-inner"></div>
+		        <div class="onoffswitch-switch"></div>
+		    </label>
+		</div>
+	</div></center>
+	<center><div class="col-md-1">
+		<label class="label-default"><label>{% trans "Extraordinary" %}</label></label>
+		<div class="onoffswitch">
+		    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-extra" checked>
+		    <label class="onoffswitch-label" for="switch-extra">
+		        <div class="onoffswitch-inner"></div>
+		        <div class="onoffswitch-switch"></div>
+		    </label>
+		</div>
+	</div>
+</div></center>
+
+<div class="row">
+	<div class="col-md-offset-1 col-md-10">
+		{% for s in skills %}
+		<div class="col-md-2">
+			{% if s.s_type.letter == 'S' or s.s_type.letter == 'F' %}
+				<a data-toggle="modal" href="#modal{{ s.id }}" class="btn btn-danger btn-striped skill-btn">{{ s.name }}</a>
+			{% elif s.s_type.letter == 'A' %}
+				<a data-toggle="modal" href="#modal{{ s.id }}" class="btn btn-info btn-striped skill-btn">{{ s.name }}</a>
+			{% elif s.s_type.letter == 'P' %}
+				<a data-toggle="modal" href="#modal{{ s.id }}" class="btn btn-primary btn-striped skill-btn">{{ s.name }}</a>
+			{% elif s.s_type.letter == 'G' %}
+				<a data-toggle="modal" href="#modal{{ s.id }}" class="btn btn-success btn-striped skill-btn">{{ s.name }}</a>
+			{% elif s.s_type.letter == 'M' %}
+				<a data-toggle="modal" href="#modal{{ s.id }}" class="btn btn-warning btn-striped skill-btn">{{ s.name }}</a>
+			{% elif s.s_type.letter == 'E' %}
+				<a data-toggle="modal" href="#modal{{ s.id }}" class="btn btn-default btn-striped skill-btn">{{ s.name }}</a>
+			{% endif %}
+
+
+		  <div class="modal fade" id="modal{{ s.id }}" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		          <h4 class="modal-title">{{ s.name }} -<i> {% trans "skill type" %} : {{ s.s_type.name }}</i></h4>
+		        </div>
+		        <div class="modal-body">
+		          {{ s.description }}
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+
+
+
+
+	{% bootstrap_javascript True %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#skills-nav').addClass("select-nav");
+
+			$('#btn-show-all').click(function(){
+				$('.onoffswitch-checkbox').prop('checked', true);
+				$('a.btn').animate({opacity:1}, 1000);
+			});
+
+			$('#btn-hide-all').click(function(){
+				$('.onoffswitch-checkbox').prop('checked', false);
+				$('a.btn').animate({opacity:0.2}, 1000);
+			});
+
+			$('.btn-success.skill-btn').hover(
+				function(){
+					$(this).animate({opacity:1}, 50);
+			},
+				function(){
+					if($('#switch-general').prop('checked') == false){
+						$(this).animate({opacity:0.2}, 50);
+					}
+			});
+
+			$('.btn-info.skill-btn').hover(
+				function(){
+					$(this).animate({opacity:1}, 50);
+			},
+				function(){
+					if($('#switch-agility').prop('checked') == false){
+						$(this).animate({opacity:0.2}, 50);
+					}
+			});
+
+			$('.btn-primary.skill-btn').hover(
+				function(){
+					$(this).animate({opacity:1}, 50);
+			},
+				function(){
+					if($('#switch-passing').prop('checked') == false){
+						$(this).animate({opacity:0.2}, 50);
+					}
+			});
+
+			$('.btn-danger.skill-btn').hover(
+				function(){
+					$(this).animate({opacity:1}, 50);
+			},
+				function(){
+					if($('#switch-strength').prop('checked') == false){
+						$(this).animate({opacity:0.2}, 50);
+					}
+			});
+
+			$('.btn-warning.skill-btn').hover(
+				function(){
+					$(this).animate({opacity:1}, 50);
+			},
+				function(){
+					if($('#switch-mutation').prop('checked') == false){
+						$(this).animate({opacity:0.2}, 50);
+					}
+			});
+
+			$('.btn-default.skill-btn').hover(
+				function(){
+					$(this).animate({opacity:1}, 50);
+			},
+				function(){
+					if($('#switch-extra').prop('checked') == false){
+						$(this).animate({opacity:0.2}, 50);
+					}
+			});
+
+
+			$('#switch-general').change(function(){
+
+				if(this.checked){
+					$('a.btn-success').css('opacity',0.2).animate({opacity:1}, 1000);
+				}else{
+					$('a.btn-success').css('opacity',1).animate({opacity:0.2}, 1000);
+				}
+			});
+
+			$('#switch-agility').change(function(){
+
+				if(this.checked){
+					$('a.btn-info').css('opacity',0.2).animate({opacity:1}, 1000);
+				}else{
+					$('a.btn-info').css('opacity',1).animate({opacity:0.2}, 1000);
+				}
+			});
+
+			$('#switch-passing').change(function(){
+
+				if(this.checked){
+					$('a.btn-primary').css('opacity',0.2).animate({opacity:1}, 1000);
+				}else{
+					$('a.btn-primary').css('opacity',1).animate({opacity:0.2}, 1000);
+				}
+			});
+
+			$('#switch-strength').change(function(){
+
+				if(this.checked){
+					$('a.btn-danger').css('opacity',0.2).animate({opacity:1}, 1000);
+				}else{
+					$('a.btn-danger').css('opacity',1).animate({opacity:0.2}, 1000);
+				}
+			});
+
+			$('#switch-mutation').change(function(){
+
+				if(this.checked){
+					$('a.btn-warning').css('opacity',0.2).animate({opacity:1}, 1000);
+				}else{
+					$('a.btn-warning').css('opacity',1).animate({opacity:0.2}, 1000);
+				}
+			});
+
+			$('#switch-extra').change(function(){
+
+				if(this.checked){
+					$('a.btn-default').css('opacity',0.2).animate({opacity:1}, 1000);
+				}else{
+					$('a.btn-default').css('opacity',1).animate({opacity:0.2}, 1000);
+				}
+			});
+		});
+	</script>
+{% endblock %}
+
+
+

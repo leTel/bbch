@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+
+{% block style %}
+<style>
+
+	.rules-btn{
+		background-color: #f0f0f0;
+		border: 1px #d0d0d0 solid;
+		height: 120px;
+		margin-bottom: 35px;
+		padding-left : 10px;
+		padding-right: 10px;
+	}
+
+	.rules-btn:hover{
+		border: 1px black solid;
+	}
+
+	thead tr td{
+		background-color: #eeeeee;
+		font-weight: bold;
+	}
+
+	#rules-link{
+		color: #606060;
+	}
+
+	#rules-link:hover{
+		color: white;
+		text-decoration: none;
+	}
+
+</style>
+{% endblock %}
+
+{% block title %}{% trans "Rules" %}{% endblock %}
+
+{% block page_settings %}
+	<ul class="dropdown-menu">
+		<li role="presentation" class="dropdown-header">{% trans "Rules list" %}</li>
+		<li><a id="show-as-btn" href="#"><span class="glyphicon glyphicon-th-large"></span> {% trans "Show as button" %}<span class="glyphicon glyphicon-ok"></span></a></li>
+		<li><a id="show-as-table" href="#"><span class="glyphicon glyphicon-align-justify"></span> {% trans "Show as table" %}<span class="glyphicon glyphicon-ok"></span></a></li>
+	</ul>
+{% endblock %}
+
+{% block alert %}{% endblock %}
+
+{% block content %}
+
+	<div class="row" id="show-btn">
+		<div class="col-md-offset-2 col-md-8">
+			{% for r in rules %}
+				<div class="col-md-4 ">
+					<div class="rules-btn">
+
+						<h4>{{ r.name }} - {{ r.language }}</h4>
+						<p>{{ r.release_date }}</br>{{ r.comments }}</p>
+						{% if r.link %}
+							<a id="rules-link" download="{{ r.link }}" href="{{ r.link }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+							<a id="rules-link" href="{{ r.link }}", target="_blank"><span class="glyphicon glyphicon-file"></span></a>
+						{% endif %}
+						<!--<a id="rules-link" href="/rules/{{ r.id }}" class="pull-right"><span class="glyphicon glyphicon-chevron-right"></span></a>-->
+
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<div class="row" id="show-table">
+		<div class="col-md-offset-2 col-md-8">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+					  <td>{% trans "Name" %}</td>
+					  <td>{% trans "Comments" %}</td> 
+					  <td>{% trans "Language" %}</td>
+					  <td>{% trans "Release date" %}</td>
+				  	  <td></td>
+					  <td></td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for r in rules %}
+					
+					<tr>
+					  <td>{{ r.name }}</td>
+					  <td>{{ r.comments }}</td> 
+					  <td>{{ r.language }}</td>
+					  <td>{{ r.release_date }}</td>
+					  {% if r.link %}
+					  <td><a id="rules-link" download="{{ r.link }}" href="{{ r.link }}"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+					  <td><a id="rules-link" href="{{ r.link }}", target="_blank"><span class="glyphicon glyphicon-file"></span></a></td>
+					  {% else %}
+					  <td></td>
+					  <td></td>
+					  {% endif %}
+					  <!--<td><a id="rules-link" href="/rules/{{ r.id }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>-->
+					</tr>
+
+					
+					{% endfor %}
+				</tbody>
+			<table>
+		</div>
+	</div>
+
+
+
+
+
+	{% bootstrap_javascript True %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#rules-nav').addClass("select-nav");
+			$('#show-btn').hide();
+			$('#show-as-btn span.glyphicon-ok').hide();
+			
+			$('#show-as-table').click(function() {
+				$('#show-table').show();
+				$('#show-btn').hide();
+				$('#show-as-table span.glyphicon-ok').show();
+				$('#show-as-btn span.glyphicon-ok').hide();
+			});
+
+			$('#show-as-btn').click(function() {
+				$('#show-table').hide();
+				$('#show-btn').show();
+				$('#show-as-table span.glyphicon-ok').hide();
+				$('#show-as-btn span.glyphicon-ok').show();
+			});
+
+			$('#log-in').click(function() {
+				if(!($('#new_account input').is(":checked"))){
+					$('#password-check input').val($('#password input').val());
+					$('#email input').val('toto@toto.com');
+				}
+			});
+		});
+	</script>
+{% endblock %}
+
+
+

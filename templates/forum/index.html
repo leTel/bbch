@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block style %}
+<style>
+
+	thead tr td{
+		background-color: #eeeeee;
+		font-weight: bold;
+	}
+
+	img{
+		height: 20px;
+	}
+
+</style>	
+{% endblock %}
+
+{% block title%}{% trans "Rules" %}{% endblock %}
+
+{% block alert %}{% endblock %}
+
+{% block content %}
+
+	<div class="row">
+		<div class="col-md-offset-2 col-md-8">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+					  <td>{% trans "Name" %}</td>
+					  <td></td>
+					  <td>{% trans "Area" %}</td> 
+					  <td>{% trans "Languages" %}</td>
+					  <td></td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for f in forums_set %}
+					<tr>
+					  <td>{{ f.name }}</td>
+					  <td><img src="{% static 'img/flag/' %}{{ f.flag }}"/></td><!--flags comes from : http://fr.wikipedia.org/wiki/Canton_suisse-->
+					  <td>{{ f.area }}</td> 
+					  <td>{{ f.languages }}</td>
+					  <td><a href="{{ f.link }}" target="_blank"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			<table>
+		</div>
+	</div>
+
+
+
+	{% bootstrap_javascript True %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#forum-nav').addClass("select-nav");
+			
+		});
+	</script>
+{% endblock %}
+
+
+

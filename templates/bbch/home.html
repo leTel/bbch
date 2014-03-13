@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block title %}{% trans "Home" %}{% endblock %}
+
+{% block page_settings %}
+	<ul class="dropdown-menu">
+		<li role="presentation" class="dropdown-header">{% trans "News filter" %}</li>
+		<li><a id="show-my-language" href="#"><span class="glyphicon glyphicon-th-large"></span> {% trans "Show only news in" %} {{ LANGUAGE_CODE|upper}} <span class="glyphicon glyphicon-ok"></span></a></li>
+		<li><a id="show-all" href="#"><span class="glyphicon glyphicon-align-justify"></span> {% trans "Show all news" %} <span class="glyphicon glyphicon-ok"></span></a></li>
+	</ul>
+{% endblock %}
+
+{% block alert %}
+	{% if log_message %}
+		<span class="alert alert-success">{% trans "You're logged in" %} {{ username }} !</span>
+	{% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+	<div class="row">
+		{% for n in news_set %}
+			{% if n.language.value == 'FR' %}
+			<div class="container well news fr">
+				<h2>{{ n.title }}</h2>
+				<p>{{ n.content }}</p>
+				<p>{{ n.published_date }} - {{ n.categories }}</p>
+			</div>
+
+			{% elif n.language.value == 'EN' %}
+			<div class="container well news en">
+				<h2>{{ n.title }}</h2>
+				<p>{{ n.content }}</p>
+				<p>{{ n.published_date }} - {{ n.categories }}</p>
+			</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+
+	{% bootstrap_javascript True %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#home-nav').addClass("select-nav");
+			$('.alert').delay(5000).fadeOut(500);
+			$('#show-my-language span.glyphicon-ok').hide();
+			
+			$('#show-my-language').click(function() {
+				$('.news').hide();
+				if('{{ LANGUAGE_CODE}}' == 'fr'){
+					$('.news.fr').show();
+				}else if('{{ LANGUAGE_CODE }}' == 'en'){
+					$('.news.en').show();
+				}
+
+				$('#show-my-language span.glyphicon-ok').show();
+				$('#show-all span.glyphicon-ok').hide();
+			});
+
+			$('#show-all').click(function() {
+				$('.news').show();
+
+				$('#show-my-language span.glyphicon-ok').hide();
+				$('#show-all span.glyphicon-ok').show();
+			});
+
+		});
+	</script>
+{% endblock %}

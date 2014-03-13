@@ -1,0 +1,168 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-12 09:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: bbch/settings.py:109
+msgid "English"
+msgstr ""
+
+#: bbch/settings.py:110
+msgid "French"
+msgstr ""
+
+#: templates/base.html:65 templates/bbch/home.html:5
+msgid "Home"
+msgstr ""
+
+#: templates/base.html:66
+msgid "Map"
+msgstr ""
+
+#: templates/base.html:67 templates/forum/index.html:21
+#: templates/rules/index.html:38 templates/rules/s_index.html:116
+msgid "Rules"
+msgstr ""
+
+#: templates/base.html:68
+msgid "Skills"
+msgstr ""
+
+#: templates/base.html:69
+msgid "Forum"
+msgstr ""
+
+#: templates/base.html:70
+msgid "Admin"
+msgstr ""
+
+#: templates/base.html:105
+msgid "New message"
+msgstr ""
+
+#: templates/base.html:106
+msgid "Inbox"
+msgstr ""
+
+#: templates/base.html:112
+msgid "Edit profile"
+msgstr ""
+
+#: templates/base.html:113
+msgid "Account preferences"
+msgstr ""
+
+#: templates/base.html:115
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:119 templates/auth/connection.html:7
+#: templates/auth/connection.html.py:33
+msgid "Connection"
+msgstr ""
+
+#: templates/auth/connection.html:11
+msgid "Incorrect username or password !"
+msgstr ""
+
+#: templates/auth/connection.html:15
+msgid "You have been logged out !"
+msgstr ""
+
+#: templates/auth/connection.html:19
+msgid "The passwords does not match !"
+msgstr ""
+
+#: templates/auth/connection.html:23
+msgid "You have to log in first !"
+msgstr ""
+
+#: templates/auth/connection.html:61 templates/auth/connection.html.py:99
+msgid "Log in"
+msgstr ""
+
+#: templates/auth/connection.html:91
+msgid "Sign up"
+msgstr ""
+
+#: templates/bbch/home.html:9
+msgid "You're logged in"
+msgstr ""
+
+#: templates/forum/index.html:32 templates/rules/index.html:77
+msgid "Name"
+msgstr ""
+
+#: templates/forum/index.html:34
+msgid "Area"
+msgstr ""
+
+#: templates/forum/index.html:35
+msgid "Languages"
+msgstr ""
+
+#: templates/rules/index.html:42
+msgid "Rules list"
+msgstr ""
+
+#: templates/rules/index.html:43
+msgid "Show as button"
+msgstr ""
+
+#: templates/rules/index.html:44
+msgid "Show as table"
+msgstr ""
+
+#: templates/rules/index.html:78
+msgid "Comments"
+msgstr ""
+
+#: templates/rules/index.html:79
+msgid "Language"
+msgstr ""
+
+#: templates/rules/index.html:80
+msgid "Release date"
+msgstr ""
+
+#: templates/rules/s_index.html:126
+msgid "All"
+msgstr ""
+
+#: templates/rules/s_index.html:136
+msgid "General"
+msgstr ""
+
+#: templates/rules/s_index.html:146
+msgid "Agility"
+msgstr ""
+
+#: templates/rules/s_index.html:156
+msgid "Passing"
+msgstr ""
+
+#: templates/rules/s_index.html:166
+msgid "Strength"
+msgstr ""
+
+#: templates/rules/s_index.html:176
+msgid "Mutation"
+msgstr ""
+
+#: templates/rules/s_index.html:186
+msgid "Extraordinary"
+msgstr ""

@@ -1,0 +1,187 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-12 12:05+0100\n"
+"PO-Revision-Date: 2014-03-12 12:07+0100\n"
+"Last-Translator:   <laurent.lugon@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
+
+#: bbch/settings.py:109
+msgid "English"
+msgstr "Anglais"
+
+#: bbch/settings.py:110
+msgid "French"
+msgstr "Français"
+
+#: templates/base.html:65 templates/bbch/home.html:5
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/base.html:66
+msgid "Map"
+msgstr "Carte"
+
+#: templates/base.html:67 templates/forum/index.html:21
+#: templates/rules/index.html:38 templates/rules/s_index.html:126
+msgid "Rules"
+msgstr "Règles"
+
+#: templates/base.html:68
+msgid "Skills"
+msgstr "Compétences"
+
+#: templates/base.html:69
+msgid "Forum"
+msgstr "Forum"
+
+#: templates/base.html:70
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/base.html:105
+msgid "New message"
+msgstr "Nouveaux messages"
+
+#: templates/base.html:106
+msgid "Inbox"
+msgstr "Messages reçus"
+
+#: templates/base.html:112
+msgid "Edit profile"
+msgstr "Modifier le profil"
+
+#: templates/base.html:113
+msgid "Account preferences"
+msgstr "Préférences du compte"
+
+#: templates/base.html:115
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: templates/base.html:119 templates/auth/connection.html:7
+#: templates/auth/connection.html.py:33
+msgid "Connection"
+msgstr "Connexion"
+
+#: templates/auth/connection.html:11
+msgid "Incorrect username or password !"
+msgstr "Nom d'utilisateur ou mot de passe incorrect !"
+
+#: templates/auth/connection.html:15
+msgid "You have been logged out !"
+msgstr "Vous avez été déconnecté !"
+
+#: templates/auth/connection.html:19
+msgid "The passwords does not match !"
+msgstr "Les mots de passe ne correspondent pas !"
+
+#: templates/auth/connection.html:23
+msgid "You have to log in first !"
+msgstr "Vous devez être connecté pour voir cette page !"
+
+#: templates/auth/connection.html:61 templates/auth/connection.html.py:99
+msgid "Log in"
+msgstr "Connexion"
+
+#: templates/auth/connection.html:91
+msgid "Sign up"
+msgstr "Inscription"
+
+#: templates/bbch/home.html:9
+msgid "You're logged in"
+msgstr "Vous êtes connecté"
+
+#: templates/forum/index.html:32 templates/rules/index.html:77
+msgid "Name"
+msgstr "Nom"
+
+#: templates/forum/index.html:34
+msgid "Area"
+msgstr "Zone"
+
+#: templates/forum/index.html:35
+msgid "Languages"
+msgstr "Langues"
+
+#: templates/rules/index.html:42
+msgid "Rules list"
+msgstr "Liste des règles"
+
+#: templates/rules/index.html:43
+msgid "Show as button"
+msgstr "Format bouton"
+
+#: templates/rules/index.html:44
+msgid "Show as table"
+msgstr "Format tableau"
+
+#: templates/rules/index.html:78
+msgid "Comments"
+msgstr "Commentaires"
+
+#: templates/rules/index.html:79
+msgid "Language"
+msgstr "Langue"
+
+#: templates/rules/index.html:80
+msgid "Release date"
+msgstr "Date de parution"
+
+#: templates/rules/s_index.html:136
+msgid "Show all"
+msgstr "Tout afficher"
+
+#: templates/rules/s_index.html:137
+msgid "Hide all"
+msgstr "Tout cacher"
+
+#: templates/rules/s_index.html:140
+msgid "General"
+msgstr "Général"
+
+#: templates/rules/s_index.html:150
+msgid "Agility"
+msgstr "Agilité"
+
+#: templates/rules/s_index.html:160
+msgid "Passing"
+msgstr "Passe"
+
+#: templates/rules/s_index.html:170
+msgid "Strength"
+msgstr "Force"
+
+#: templates/rules/s_index.html:180
+msgid "Mutation"
+msgstr "Mutation"
+
+#: templates/rules/s_index.html:190
+msgid "Extraordinary"
+msgstr "Extraordinaire"
+
+#: templates/rules/s_index.html:225
+msgid "skill type"
+msgstr "type de compétence"
+
+#~ msgid "All"
+#~ msgstr "Tout"
+
+#~ msgid "{{ s.name }} - {{ s.s_type.name }} skill"
+#~ msgstr "{{ s.name }} - type de compétence : {{ s.s_type.name }}"
+
+#~ msgid "Search"
+#~ msgstr "Recherche"
