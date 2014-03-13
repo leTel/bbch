@@ -17,3 +17,5 @@ def home(request, log_message=False):
  		'loged_in' : request.user.is_authenticated(),
  	}
 	return render(request, 'bbch/home.html', context)
+
+	#test modification
