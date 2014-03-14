@@ -71,6 +71,15 @@ WSGI_APPLICATION = 'bbch.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE':'django.db.backends.mysql',
+        'NAME': 'bbch',
+        'USER': 'bbch_user',
+        'PASSWORD': 'UrRfP7SVt63b25mGJ4VZ7446',
+        'HOST': '127.0.0.1',
+        'PORT': '',
+        'OPTIONS': {"init_command": "SET storage_engine=INNODB", 'use_unicode':True,},  
+    },
+        'lite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }

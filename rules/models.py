@@ -2,7 +2,6 @@ from django.db import models
 
 class Rule(models.Model) :
 	name = models.CharField(max_length=30)
-	description = models.TextField()
 	language = models.ForeignKey('Language')
 	release_date = models.DateField()
 	comments = models.CharField(max_length=100, blank=True, null=True)
