@@ -2,32 +2,36 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-12 12:05+0100\n"
-"PO-Revision-Date: 2014-03-12 12:07+0100\n"
-"Last-Translator:   <laurent.lugon@gmail.com>\n"
+"POT-Creation-Date: 2014-03-14 16:34+0100\n"
+"PO-Revision-Date: 2014-03-14 16:34+0100\n"
+"Last-Translator: Laurent Lugon Moulin <laurent.lugon@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: bbch/settings.py:109
+#: auth/views.py:92
+msgid "Your profile has been updated !"
+msgstr "Votre profile a été mis à jour !"
+
+#: bbch/settings.py:118
 msgid "English"
 msgstr "Anglais"
 
-#: bbch/settings.py:110
+#: bbch/settings.py:119
 msgid "French"
 msgstr "Français"
 
-#: templates/base.html:65 templates/bbch/home.html:5
+#: templates/base.html:65 templates/bbch/home.html:6
 msgid "Home"
 msgstr "Accueil"
 
@@ -36,7 +40,7 @@ msgid "Map"
 msgstr "Carte"
 
 #: templates/base.html:67 templates/forum/index.html:21
-#: templates/rules/index.html:38 templates/rules/s_index.html:126
+#: templates/rules/index.html:38 templates/rules/s_index.html:123
 msgid "Rules"
 msgstr "Règles"
 
@@ -48,72 +52,142 @@ msgstr "Compétences"
 msgid "Forum"
 msgstr "Forum"
 
-#: templates/base.html:70
+#: templates/base.html:71
+msgid "Translation"
+msgstr "Traduction"
+
+#: templates/base.html:74
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/base.html:105
+#: templates/base.html:110
 msgid "New message"
 msgstr "Nouveaux messages"
 
-#: templates/base.html:106
+#: templates/base.html:111
 msgid "Inbox"
 msgstr "Messages reçus"
 
-#: templates/base.html:112
-msgid "Edit profile"
-msgstr "Modifier le profil"
+#: templates/base.html:117
+msgid "My teams"
+msgstr "Mes équipes"
 
-#: templates/base.html:113
+#: templates/base.html:118 templates/auth/user_profile.html:36
+#: templates/auth/user_profile.html:52
+msgid "Profile"
+msgstr "Profil"
+
+#: templates/base.html:119
 msgid "Account preferences"
 msgstr "Préférences du compte"
 
-#: templates/base.html:115
+#: templates/base.html:121
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: templates/base.html:119 templates/auth/connection.html:7
-#: templates/auth/connection.html.py:33
+#: templates/base.html:125 templates/auth/connection.html:7
+#: templates/auth/connection.html.py:35
 msgid "Connection"
 msgstr "Connexion"
 
-#: templates/auth/connection.html:11
+#: templates/auth/connection.html:13
 msgid "Incorrect username or password !"
 msgstr "Nom d'utilisateur ou mot de passe incorrect !"
 
-#: templates/auth/connection.html:15
+#: templates/auth/connection.html:17
 msgid "You have been logged out !"
 msgstr "Vous avez été déconnecté !"
 
-#: templates/auth/connection.html:19
+#: templates/auth/connection.html:21
 msgid "The passwords does not match !"
 msgstr "Les mots de passe ne correspondent pas !"
 
-#: templates/auth/connection.html:23
+#: templates/auth/connection.html:25
 msgid "You have to log in first !"
 msgstr "Vous devez être connecté pour voir cette page !"
 
-#: templates/auth/connection.html:61 templates/auth/connection.html.py:99
+#: templates/auth/connection.html:63 templates/auth/connection.html.py:100
 msgid "Log in"
 msgstr "Connexion"
 
-#: templates/auth/connection.html:91
+#: templates/auth/connection.html:92
 msgid "Sign up"
 msgstr "Inscription"
 
-#: templates/bbch/home.html:9
+#: templates/auth/user_profile.html:55
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: templates/auth/user_profile.html:71
+msgid "Informations"
+msgstr "Informations"
+
+#: templates/auth/user_profile.html:74
+msgid "Last time connected"
+msgstr "Dernière connexion"
+
+#: templates/auth/user_profile.html:78
+msgid "Member since"
+msgstr "Inscrit depuis"
+
+#: templates/auth/user_profile.html:84
+msgid "Groups"
+msgstr "Groupes"
+
+#: templates/auth/user_profile.html:95
+msgid "You have not join any group yet"
+msgstr "Vous n'avez rejoins aucun groupe pour le moment."
+
+#: templates/auth/user_profile.html:101
+msgid "Rights"
+msgstr "Droits"
+
+#: templates/auth/user_profile.html:105
+msgid "Active"
+msgstr "Actif"
+
+#: templates/auth/user_profile.html:116
+msgid "Staff"
+msgstr "Staff"
+
+#: templates/auth/user_profile.html:125
+msgid "Super user"
+msgstr "Super utilisateur"
+
+#: templates/auth/user_profile.html:139 templates/teams/index.html:86
+msgid "Cancel changes"
+msgstr "Annuler"
+
+#: templates/auth/user_profile.html:142 templates/teams/index.html:89
+msgid "Save changes"
+msgstr "Sauver"
+
+#: templates/bbch/home.html:10
+msgid "News filter"
+msgstr "Filtrer les news"
+
+#: templates/bbch/home.html:11
+msgid "Show only news in"
+msgstr "Montrer seulement les news en"
+
+#: templates/bbch/home.html:12
+msgid "Show all news"
+msgstr "Afficher toutes les news"
+
+#: templates/bbch/home.html:18
 msgid "You're logged in"
 msgstr "Vous êtes connecté"
 
-#: templates/forum/index.html:32 templates/rules/index.html:77
+#: templates/forum/index.html:34 templates/rules/index.html:77
+#: templates/teams/index.html:114
 msgid "Name"
 msgstr "Nom"
 
-#: templates/forum/index.html:34
+#: templates/forum/index.html:36
 msgid "Area"
 msgstr "Zone"
 
-#: templates/forum/index.html:35
+#: templates/forum/index.html:37
 msgid "Languages"
 msgstr "Langues"
 
@@ -141,41 +215,89 @@ msgstr "Langue"
 msgid "Release date"
 msgstr "Date de parution"
 
-#: templates/rules/s_index.html:136
+#: templates/rules/s_index.html:133
 msgid "Show all"
 msgstr "Tout afficher"
 
-#: templates/rules/s_index.html:137
+#: templates/rules/s_index.html:134
 msgid "Hide all"
 msgstr "Tout cacher"
 
-#: templates/rules/s_index.html:140
+#: templates/rules/s_index.html:137
 msgid "General"
 msgstr "Général"
 
-#: templates/rules/s_index.html:150
+#: templates/rules/s_index.html:147
 msgid "Agility"
 msgstr "Agilité"
 
-#: templates/rules/s_index.html:160
+#: templates/rules/s_index.html:157
 msgid "Passing"
 msgstr "Passe"
 
-#: templates/rules/s_index.html:170
+#: templates/rules/s_index.html:167
 msgid "Strength"
 msgstr "Force"
 
-#: templates/rules/s_index.html:180
+#: templates/rules/s_index.html:177
 msgid "Mutation"
 msgstr "Mutation"
 
-#: templates/rules/s_index.html:190
+#: templates/rules/s_index.html:187
 msgid "Extraordinary"
 msgstr "Extraordinaire"
 
-#: templates/rules/s_index.html:225
+#: templates/rules/s_index.html:222
 msgid "skill type"
 msgstr "type de compétence"
+
+#: templates/teams/index.html:26
+msgid "Teams"
+msgstr "Equipes"
+
+#: templates/teams/index.html:41
+msgid "You don't have any team yet. Do you want to create one ?"
+msgstr "Vous n'avez pas d'équipes pour le moment. Voulez-vous en créer une ?"
+
+#: templates/teams/index.html:46
+msgid "No"
+msgstr "Non"
+
+#: templates/teams/index.html:49
+msgid "Yes"
+msgstr "Oui"
+
+#: templates/teams/index.html:58 templates/teams/index.html.py:100
+msgid "Team"
+msgstr "Equipe"
+
+#: templates/teams/index.html:64 templates/teams/index.html.py:101
+msgid "Coach"
+msgstr "Coach"
+
+#: templates/teams/index.html:69 templates/teams/index.html.py:103
+msgid "Players"
+msgstr "Joueurs"
+
+#: templates/teams/index.html:108
+msgid "Number"
+msgstr "Numéro"
+
+#: templates/teams/index.html:111
+msgid "Position"
+msgstr "Position"
+
+#: templates/teams/index.html:117
+msgid "XP"
+msgstr "XP"
+
+#: templates/teams/index.html:142
+msgid "Edit team"
+msgstr "Modifier l'équipe"
+
+#: templates/teams/index.html:145
+msgid "Add a player"
+msgstr "Ajouter un joueur"
 
 #~ msgid "All"
 #~ msgstr "Tout"

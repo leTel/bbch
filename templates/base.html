@@ -66,8 +66,13 @@
                             <li id="map-nav" class="separator-next nav-item"><a href="https://mapsengine.google.com/map/edit?mid=ztNnXqVHx3dc.kK3MnqCB3NEo&hl=fr" target="_blank"><span class="glyphicon glyphicon-globe"></span> {% trans "Map" %}</a></li>
                             <li id="rules-nav" class="nav-item"><a href="/rules/"><span class="glyphicon glyphicon-book"></span> {% trans "Rules" %}</a></li>
                             <li id="skills-nav" class="separator-next nav-item"><a href="/rules/skills"><span class="glyphicon glyphicon-flash"></span> {% trans "Skills" %}</a></li>
-                            <li id="forum-nav" class="nav-item"><a href="/forum/"><span class="glyphicon glyphicon-list-alt"></span> {% trans "Forum" %}</a></li>
-                            <li id="forum-nav" class="nav-item"><a href="/admin/" target="_blank"><span class="glyphicon glyphicon-fire"></span> {% trans "Admin" %}</a></li>
+                            <li id="forum-nav" class="nav-item separator-next"><a href="/forum/"><span class="glyphicon glyphicon-list-alt"></span> {% trans "Forum" %}</a></li>
+                            {% if user.is_superuser or user.is_staff %}
+                                <li class="nav-item"><a href="/rosetta/" target="_blank"><span class="glyphicon glyphicon-globe"></span> {% trans "Translation" %}</a></li>
+                            {% endif %}
+                            {% if user.is_superuser %}
+                                <li class="nav-item"><a href="/admin/" target="_blank"><span class="glyphicon glyphicon-fire"></span> {% trans "Admin" %}</a></li>
+                            {% endif %}
                         </ul>
                     </div>
 
@@ -107,9 +112,10 @@
                                     </ul>
                                 </li>
                                 <li id="connected-dropdown" class="dropdown">
-                                    <a href="#" class="dropdown-toggle"><span id="dropdown-text"><span class="glyphicon glyphicon-user"></span> {{ username }} </span><span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle"><span id="dropdown-text">{{ username }}</span><span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#"><span class="glyphicon glyphicon-list"></span> {% trans "Edit profile" %}</a></li>
+                                        <li><a href="/teams/"><span class="glyphicon glyphicon-user"></span> {% trans "My teams" %}</a></li>
+                                        <li><a href="/auth/profile"><span class="glyphicon glyphicon-list"></span> {% trans "Profile" %}</a></li>
                                         <li><a href="#"><span class="glyphicon glyphicon-wrench"></span> {% trans "Account preferences" %}</a></li>
                                         <li class="divider"></li>
                                         <li><a href="/auth/logout/"><span class="glyphicon glyphicon-log-out"></span> {% trans "Logout" %}</a></li>
@@ -130,13 +136,5 @@
 	   {% block content %}{% endblock %}
     </div>
 
-    {% bootstrap_javascript True %}
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-        });
-    </script>
-
-    
 </body>
 </html>

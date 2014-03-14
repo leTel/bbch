@@ -20,6 +20,8 @@
 
 {% block title%}{% trans "Rules" %}{% endblock %}
 
+{% block page_settings %}{% endblock %}
+
 {% block alert %}{% endblock %}
 
 {% block content %}
@@ -56,6 +58,7 @@
 	{% bootstrap_javascript True %}
 	<script type="text/javascript">
 		$(document).ready(function() {
+			$('#settings-dropdown').hide();
 			$('#forum-nav').addClass("select-nav");
 			
 		});

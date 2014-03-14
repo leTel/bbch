@@ -39,14 +39,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
+    'rosetta',
     'bbch',
-    'poll',
     'auth',
     'rules',
     'forum',
     'news',
-    'forum',
-    'rosetta',
+    'teams',
+    
     
 )
 
@@ -122,6 +122,4 @@ LANGUAGES =(
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
-
-
 

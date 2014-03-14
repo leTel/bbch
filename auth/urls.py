@@ -5,4 +5,5 @@ import auth.views
 urlpatterns = patterns('',
     url(r'^$', auth.views.connection, name='connection'),
     url(r'^logout/', auth.views.connection, {'logout_flag':True}, name='connection_logout'),
+    url(r'^profile/', auth.views.user_profile, name='user_profile'),
 )

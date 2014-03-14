@@ -6,6 +6,8 @@
 
 {% block title%}{% trans "Connection" %}{% endblock %}
 
+{% block page_settings %}{% endblock %}
+
 {% block alert %}
 	{% if credential_error %}
 		<span class="alert alert-danger">{% trans "Incorrect username or password !" %}</span>
@@ -26,8 +28,8 @@
 
 {% block content %}
 	<div class="row">
-		<div class="col-md-5">
-			<form action="#" method="post" class="form well error" id="connection-form">
+		<div class="container well">
+			<form action="#" method="post" class="form error" id="connection-form">
 				{% csrf_token %}
 
 				<legend>{% trans "Connection" %}</legend>
@@ -68,7 +70,7 @@
 	{% bootstrap_javascript True %}
 	<script type="text/javascript">
 		$(document).ready(function() {
-
+			$('#settings-dropdown').hide();
 			$('#password-check').hide();
 			$('#email').hide();
 			$('#connection-nav').addClass("select-nav");

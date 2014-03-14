@@ -7,3 +7,8 @@ class LoginForm(forms.Form):
     passwordCheck = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password'}))
     new_account = forms.BooleanField(initial=False, required=False, label="Create new account")
     remember = forms.BooleanField(initial=True, required=False, label='Remember me')
+
+class ProfileForm(forms.Form):
+    email = forms.EmailField()
+    first_name = forms.CharField(required=False,)
+    last_name = forms.CharField(required=False,)

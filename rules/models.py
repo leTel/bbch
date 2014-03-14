@@ -8,7 +8,7 @@ class Rule(models.Model) :
 	link = models.URLField(blank=True, null=True)
 
 	def __unicode__(self):
-		return self.description
+		return self.name
 
 class Language(models.Model) :
 	name = models.CharField(max_length=4)
