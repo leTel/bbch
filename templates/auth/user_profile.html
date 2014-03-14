@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+
+{% block style %}
+<style>
+	.profile-field input:enabled{
+		background-color: transparent;
+		border: 0px;
+	}
+
+	.profile-field input:hover{
+		background-color: white;
+		border: 1px solid #e0e0e0;
+	}
+
+	.profile-field input:focus{
+		background-color: white;
+	}
+
+	.edit-field{
+		margin-bottom: 0;
+	}
+
+	.form-label{
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+
+	.separator{
+		margin-top: 20px;
+	}
+</style>
+{% endblock %}
+
+{% block title %}{% trans "Profile" %}{% endblock %}
+
+{% block page_settings %}{% endblock %}
+
+{% block alert %}
+	{% if alert_content %}
+		<span class="alert alert-success">{{ alert_content }}</span>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="container">
+			<form action="#" method="post" class="form well error" id="connection-form">
+				{% csrf_token %}
+
+				<legend>{% trans "Profile" %}</legend>
+				<div class="row">
+		    		<div class="col-md-6">
+		    			<div class="form-label">{% trans "Username" %}</div>
+		    			{{ user.username }}
+				    </div>
+				    <div class="col-md-6 profile-field" id="">
+		    			{% bootstrap_field form.email %}
+				    </div>
+			    </div>
+			    <div class="row">
+				    <div class="col-md-6 profile-field" id="">
+				    	{% bootstrap_field form.first_name %}
+				    </div>
+				    <div class="col-md-6 profile-field" id="">
+				    	{% bootstrap_field form.last_name %}
+				    </div>
+				</div>
+				
+				<legend>{% trans "Informations" %}</legend>
+			    <div class="row">
+				    <div class="col-md-6"  id="">
+				    	<div class="form-label">{% trans "Last time connected" %}</div>
+				    	{{ user.last_login }}
+				    </div>
+				    <div class="col-md-6" id="">
+				    	<div class="form-label">{% trans "Member since" %}</div>
+				    	{{ user.date_joined }}
+				    </div>
+				</div>
+
+				<div class="separator"></div>
+				<legend>{% trans "Groups" %}</legend>
+				<div class="row">
+
+					{% if user.groups.name %}
+				    <div class="col-md-2" id="">
+				    	{% for g in user.groups.name %}
+				    		<div class="form-label">{{ user.groups.name }}</div>
+				    	{% endfor %}
+				    </div>
+				    {% else %}
+				    	<div class="col-md-6">
+				    		<div class="form-label">{% trans "You have not join any group yet" %}</div>
+				    </div>
+				    {% endif %}
+				</div>
+
+				<div class="separator"></div>
+				<legend>{% trans "Rights" %}</legend>
+			    <div class="row">
+
+				    <div class="col-md-2" id="">
+				    	<div class="form-label">{% trans "Active" %}</div>
+				    	{% if user.is_active %}
+				    		<span class="glyphicon glyphicon-ok"></span>
+				    	{% else %}
+				    		<span class="glyphicon glyphicon-remove"></span>
+				    	{% endif %}
+				    </div>
+
+				    {% if user.is_staff or user.is_superuser %}
+
+					    <div class="col-md-2" id="">
+					    	<div class="form-label">{% trans "Staff" %}</div>
+					    	{% if user.is_staff %}
+					    		<span class="glyphicon glyphicon-ok"></span>
+					    	{% else %}
+					    		<span class="glyphicon glyphicon-remove"></span>
+					    	{% endif %}
+					    </div>
+
+					    <div class="col-md-2" id="">
+					    	<div class="form-label">{% trans "Super user" %}</div>
+					    	{% if user.is_superuser %}
+					    		<span class="glyphicon glyphicon-ok"></span>
+					    	{% else %}
+					    		<span class="glyphicon glyphicon-remove"></span>
+					    	{% endif %}
+					    </div>
+				    {% endif %}
+				</div>
+
+				<div class="separator"></div>
+				<legend></legend>
+			    <div class="row">
+					<div class="col-md-offset-6 col-md-3">
+						<a href="/auth/profile" class="btn btn-warning form-btn" id="cancel-btn"><span class="glyphicon glyphicon-floppy-remove" id="log-in-logo"></span><span class="button-text"> {% trans "Cancel changes" %}</span></a>
+					</div>
+					<div class="col-md-3">
+					    <button type="submit" class="btn btn-success form-btn" id="save-btn"><span class="glyphicon glyphicon-floppy-save" id="log-in-logo"></span><span class="button-text"> {% trans "Save changes" %}</span></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	{% bootstrap_javascript True %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#settings-dropdown').hide();
+			$('#connected-dropdown').addClass("select-nav");
+			$('.form-btn').attr('disabled','disabled').removeClass("btn-success btn-warning").addClass("btn-default");
+			$('input').change(function() { 
+				$('#save-btn').removeAttr('disabled').removeClass("btn-default").addClass("btn-success");
+				$('#cancel-btn').removeAttr('disabled').removeClass("btn-default").addClass("btn-warning");
+			}); 
+			$('.alert').delay(5000).fadeOut(500);
+
+		});
+	</script>
+{% endblock %}
