@@ -55,6 +55,11 @@
 		border: 1px solid #eeeeee;
 	}
 
+	#btn-new-team{
+		margin-bottom: 20px;
+		margin-left: 15px;
+	}
+
 </style>
 {% endblock %}
 
@@ -63,14 +68,19 @@
 {% block page_settings %}{% endblock %}
 
 {% block alert %}
-	{% if alert_form %}
-		<span class="alert alert-danger">{{ alert_form }}</span>
+<div>
+	{% if alert_form_team %}
+		<span class="alert alert-danger">Team form error: {{ alert_form_team }}</span>
+	{% elif alert_form_player %}
+		<span class="alert alert-danger">Player form error: {{ alert_form_player }}</span>
 	{% endif %}
+</div>
 {% endblock %}
 
 {% block content %}
-{% if teams|length == 0 %} <!-- NEW TEAM -->
-	<div class="my-container">
+{% if teams|length == 0 or add_new_team %} <!-- NEW TEAM -->
+	<div class="container well">
+		{% if teams|length == 0 %}
 		<div class="row">
 			<div class="col-md-12 form-question">
 				{% trans "You don't have any team yet. Do you want to create one ?" %}
@@ -81,45 +91,65 @@
 				<a href="javascript:history.back()" class="btn btn-danger btn-answer">{% trans "No" %} !</a>
 			</div>
 			<div class="col-md-offset-2 col-md-1">
-				<div class="btn btn-success btn-answer">{% trans "Yes" %} !</div>
+				<div class="btn btn-success btn-answer btn-yes">{% trans "Yes" %} !</div>
 			</div>
-
 		</div>
+		{% endif %}
 		<form action="#" method="post" class="form create-team hide-me" id="connection-form">
 			{% csrf_token %}
 
 			<legend>{% trans "Team" %}</legend>
 			<div class="row">
-			    <div class="col-md-4 " id="">
+			    <div class="col-md-4 ">
 	    			{% bootstrap_field create_team_form.name %}
 			    </div>
-			    <div class="col-md-offset-3 col-md-5">
+			    <div class=" col-md-5">
 	    			<div class="form-label">{% trans "Coach" %}</div>
 	    			{{ user.username }}
 			    </div>
 		    </div>
-			
-			<legend>{% trans "Players" %}</legend>
 		    <div class="row">
-			    <div class="col-md-2" id="">
-	    			{% bootstrap_field create_team_form.p_number %}
+			    <div class="col-md-2 ">
+	    			<span id="form-reroll-value" class="create-team-field">{% bootstrap_field create_team_form.reroll_value %}</span>
 			    </div>
-			    <div class="col-md-5" id="">
-	    			{% bootstrap_field create_team_form.p_position %}
+			    <div class="col-md-2 ">
+	    			<span id="form-reroll" class="create-team-field">{% bootstrap_field create_team_form.reroll %}</span>
 			    </div>
-			    <div class="col-md-5" id="">
-	    			{% bootstrap_field create_team_form.p_name %}
+			    <div class="col-md-2">
+	    			<span id="form-pop" class="create-team-field">{% bootstrap_field create_team_form.pop %}</span>
 			    </div>
+		    </div>
+
+		    <legend>{% trans "Assistants" %}</legend>
+			<div class="row">
+			    <div class="col-md-2 form-label">
+					<span id="form-apo" class="create-team-field">{% bootstrap_field create_team_form.apo %}</span>
+			    </div>
+			    <div class="col-md-2 form-label"> 
+					<span id="form-pompom" class="create-team-field">{% bootstrap_field create_team_form.pompom %}</span>
+				</div>
+				<div class="col-md-2 form-label">
+					<span id="form-assistant" class="create-team-field">{% bootstrap_field create_team_form.assistant %}</span>
+				</div>
 			</div>
 
-			<div class="separator"></div>
-			<legend></legend>
-		    <div class="row">
-				<div class="col-md-offset-6 col-md-3">
-					<a href="javascript:history.back()" class="btn btn-warning form-btn"><span class="glyphicon glyphicon-floppy-remove"></span> {% trans "Cancel changes" %}</a>
+			<legend>{% trans "Treasury" %} - <i>{% trans "in KPO" %}</i></legend>
+			<div class="row">
+			    <div class="col-md-3 form-label">
+					<span id="form-team-value">{% bootstrap_field create_team_form.value %}</span>
+			    </div>
+			    <div class="col-md-3 form-label">
+					<span id="form-treasury">{% bootstrap_field create_team_form.treasury %}</span>
 				</div>
-				<div class="col-md-3">
-				    <button type="submit" class="btn btn-success form-btn" id="save-btn"><span class="glyphicon glyphicon-floppy-save"></span> {% trans "Save changes" %}</button>
+			</div>
+
+			<legend class="separator"></legend>
+		    <div class="row">
+				<div class="col-md-offset-8 col-md-2">
+					<a href="javascript:history.back()" class="btn btn-warning pull-right"><span class="glyphicon glyphicon-floppy-remove"></span> {% trans "Cancel changes" %}</a>
+				</div>
+				<div class="col-md-2">
+				    <button type="submit" class="btn btn-success pull-right" id="save-btn"><span class="glyphicon glyphicon-floppy-save"></span> {% trans "Continue" %}</button>
 				</div>
 			</div>
 			<span id="create-new-team" hidden>{% bootstrap_field create_team_form.new_team %}</span>
@@ -127,9 +157,26 @@
 	</div>
 
 {% else %} <!-- Display existing teams -->
-	<div class="my-container">
+	<a href="/teams/new-team/" class="btn btn-success btn-lg" id="btn-new-team"><span class="glyphicon glyphicon-plus"></span> {% trans "Add new team" %}</a>
+	
+	<ul class="nav nav-tabs">
 	{% for t in teams %}
+		{% if forloop.first %}
+			<li class="active"><a href="#{{ t.id }}" data-toggle="tab" id="nav-{{ t.id }}">{{ t.name }}</a></li>
+		{% else %}
+			<li><a href="#{{ t.id }}" data-toggle="tab" id="nav-{{ t.id }}">{{ t.name }}</a></li>
+		{% endif %}
+	{% endfor %}
+	</ul>
 
+	<div class="tab-content">
+	{% for t in teams %}
+		{% if forloop.first %}
+			<div class="tab-pane active fade in" id="{{ t.id }}">
+		{% else %}
+			<div class="tab-pane fade" id="{{ t.id }}">
+		{% endif %}
+	<div class="my-container">
 		<legend>{% trans "Team" %} : <b>{{ t.name }}</b></legend>
 		<div class="row">
 		    <div class="col-md-2 form-label">
@@ -254,16 +301,16 @@
 
 	    <div class="row">
 	    	<div class="col-md-2">
-				<a href="#" class="btn btn-danger" id="delete-team"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete team" %}</a>
+				<a href="{% url 'delete_team_url' %}" class="btn btn-danger delete-team"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete team" %}</a>
 			</div>
 			<div class="col-md-2">
-				<a href="#" class="btn btn-info" id="edit-team"><span class="glyphicon glyphicon-pencil"></span> {% trans "Edit team" %}</a>
+				<a href="#" class="btn btn-info edit-team"><span class="glyphicon glyphicon-pencil"></span> {% trans "Edit team" %}</a>
 			</div>
 			<div class="col-md-2 col-md-offset-6 btn-right">
-			    <a href="#" class="btn btn-success" id="add-player"><span class="glyphicon glyphicon-plus"></span> {% trans "Add a player" %}</a>
+			    <a href="#" class="btn btn-success add-player"><span class="glyphicon glyphicon-plus"></span> {% trans "Add a player" %}</a>
 			</div>
 		</div>
-		<form action="#" method="post" class="form add-player hide-me" id="connection-form">
+		<form action="#" method="post" class="form add-player hide-me">
 			{% csrf_token %}
 
 			<legend class="separator">{% trans "New player" %}</legend>
@@ -278,17 +325,19 @@
 	    			{% bootstrap_field create_player_form.name %}
 			    </div>
 			</div>
-			<span id="create-new-player" hidden>{% bootstrap_field create_player_form.new_player %}</span>
+			<span class="create-new-player" hidden>{% bootstrap_field create_player_form.new_player %}</span>
 			<input type="hidden" value="{{ t.id }}" name="team_id">
 			<div class="row">
 				<div class="col-md-2 col-md-offset-8 btn-right">
-					<a href="#" class="btn btn-warning" id="cancel-add-player"><span class="glyphicon glyphicon-floppy-remove"></span> {% trans "Cancel" %}</a>
+					<a href="#" class="btn btn-warning cancel-add-player"><span class="glyphicon glyphicon-floppy-remove"></span> {% trans "Cancel" %}</a>
 				</div>
 				<div class="col-md-2 btn-right">
 				    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> {% trans "Add player" %}</button>
 				</div>
 			</div>
 		</form>
+	</div>
+	</div><!--end of div content-tab-->
 	{% endfor %}
 	</div>
 {% endif %}
@@ -301,8 +350,15 @@
 			$('#settings-dropdown').hide();
 			$('#connected-dropdown').addClass("select-nav");
 			$('.alert').delay(5000).fadeOut(500);
-			$('form.create-team').hide()
 			$('form.add-player').hide()
+			$('#nav-{{ tab_id }}').tab('show');
+
+
+			if({{ teams|length }} == 0){
+				$('form.create-team').hide()
+			}else{
+				$('#create-new-team input').prop('checked',true);
+			}
 
 			$('.btn-answer.btn-success').hover(
 				function(){
@@ -313,35 +369,60 @@
 			$('.btn-answer.btn-success').click(
 				function(){
 					$("form.create-team").show().removeClass('hide-me');
-					$('#add').attr('disabled','disabled').removeClass("btn-success").addClass("btn-default");
+					$('.btn-yes').attr('disabled','disabled').removeClass("btn-success").addClass("btn-default");
 					$('.btn-answer.btn-danger').attr('disabled','disabled').removeClass("btn-danger").addClass("btn-default");
 					$('#create-new-team input').prop('checked',true);
 			});
 
-			$('#add-player').hover(
+			$('.add-player').hover(
 				function(){
 					$("form.add-player.hide-me").show(150)
 				},function(){
 					$("form.add-player.hide-me").hide(150)
 			});
-			$('#add-player').click(
+			$('.add-player').click(
 				function(){
 					$("form.add-player.hide-me").show().removeClass('hide-me');
-					$('#delete-team').attr('disabled','disabled').removeClass("btn-danger").addClass("btn-default");
-					$('#edit-team').attr('disabled','disabled').removeClass("btn-info").addClass("btn-default");
-					$('#add-player').attr('disabled','disabled').removeClass("btn-success").addClass("btn-default");
-					$('#create-new-player input').prop('checked',true);
+					$('.delete-team').attr('disabled','disabled').removeClass("btn-danger").addClass("btn-default");
+					$('.edit-team').attr('disabled','disabled').removeClass("btn-info").addClass("btn-default");
+					$('.add-player').attr('disabled','disabled').removeClass("btn-success").addClass("btn-default");
+					$('.create-new-player input').prop('checked',true);
 			});
 
-			$('#cancel-add-player').click(
+			$('.cancel-add-player').click(
 				function(){
 					$("form.add-player").addClass('hide-me').hide(150);
-					$('#delete-team').removeAttr('disabled').removeClass("btn-default").addClass("btn-danger");
-					$('#edit-team').removeAttr('disabled').removeClass("btn-default").addClass("btn-info");
-					$('#add-player').removeAttr('disabled').removeClass("btn-default").addClass("btn-success");
-					$('#create-new-player input').prop('checked',false);
+					$('.delete-team').removeAttr('disabled').removeClass("btn-default").addClass("btn-danger");
+					$('.edit-team').removeAttr('disabled').removeClass("btn-default").addClass("btn-info");
+					$('.add-player').removeAttr('disabled').removeClass("btn-default").addClass("btn-success");
+					$('.create-new-player input').prop('checked',false);
 
 			});
+
+			$('.create-team-field input').change(
+				function(){
+					ReCalc()
+					
+			});
+
+			var ReCalc = function(){
+				$('#form-team-value input').val(
+					$('#form-reroll input').val() * $('#form-reroll-value input').val() +
+					$('#form-pop input').val() * 10 +
+					$('#form-pompom input').val() * 10 +
+					$('#form-assistant input').val() * 10
+				);
+
+
+
+				$('#form-treasury input').val(1000
+					- $('#form-reroll input').val() * $('#form-reroll-value input').val() 
+					- $('#form-pop input').val() * 10
+					- $('#form-pompom input').val() * 10
+					- $('#form-assistant input').val() * 10
+
+				);
+			};
 		});
 	</script>
 {% endblock %}

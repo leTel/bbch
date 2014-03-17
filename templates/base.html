@@ -60,7 +60,7 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-8">
                         <ul class="nav navbar-nav">
                             <li id="home-nav" class="nav-item"><a href="/home/"><span class="glyphicon glyphicon-home"></span> {% trans "Home" %}</a></li>
                             <li id="map-nav" class="separator-next nav-item"><a href="https://mapsengine.google.com/map/edit?mid=ztNnXqVHx3dc.kK3MnqCB3NEo&hl=fr" target="_blank"><span class="glyphicon glyphicon-globe"></span> {% trans "Map" %}</a></li>
@@ -76,13 +76,7 @@
                         </ul>
                     </div>
 
-                    <div id="alert-div" class="col-md-4">
-                        <form class="navbar-form navbar-right">
-                            {% block alert %}{% endblock %}
-                        </form>
-                    </div>
-
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <ul class="nav navbar-nav navbar-right">
 
                             <li id="language-select" class="dropdown">
@@ -130,9 +124,8 @@
             </div>
         </div>
     </nav>
-
+    <center>{% block alert %}{% endblock %}</center>
     <div id="content">   
-        
 	   {% block content %}{% endblock %}
     </div>
 
