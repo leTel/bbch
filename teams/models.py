@@ -8,6 +8,11 @@ class Player(models.Model):
 	value = models.IntegerField(default=50000)
 	maximum = models.IntegerField(default=0)
 	team = models.ForeignKey('Team')
+	ma = models.IntegerField(default=6)
+	st = models.IntegerField(default=3)
+	ag = models.IntegerField(default=3)
+	av = models.IntegerField(default=7)
+
 
 	def __unicode__(self):
 		return ("#"+self.number+" "+self.name+", "+self.position)
@@ -17,6 +22,12 @@ class Team(models.Model):
 	size = models.IntegerField(default=0)
 	value = models.IntegerField(default=0)
 	coach = models.CharField(max_length=30)
+	reroll = models.IntegerField(default=0)
+	treasury = models.IntegerField(default=1000000)
+	apo = models.BooleanField(default=False)
+	assistant = models.IntegerField(default=0)
+	pompom = models.IntegerField(default=0)
+	pop = models.IntegerField(default=0)
 
 	def __unicode__(self):
 		return self.name

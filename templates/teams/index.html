@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
 {% load i18n %}
+{% load humanize %}
 
 {% block style %}
 <style>
@@ -20,6 +21,40 @@
 		margin-bottom: 10px;
 	}
 
+	.btn-right{
+		text-align: right;
+	}
+
+	a.my-a{
+		color: #404040;
+	}
+	a.my-a.add:hover{
+		color: #00bb00;
+	}
+	a.my-a.edit:hover{
+		color: #0000ee;
+	}
+	a.my-a.delete:hover{
+		color: #bb0000;
+	}
+
+	legend.my-legend{
+		margin-top: 1px;
+		margin-bottom: 1px;
+	}
+
+	.row.player-row:hover{
+		background-color: #ffffff;
+	}
+
+	.my-container{
+		background-color: #f4f4f4;
+		margin-left: 5px;
+		margin-right: 5px;
+		padding: 10px;
+		border: 1px solid #eeeeee;
+	}
+
 </style>
 {% endblock %}
 
@@ -34,8 +69,8 @@
 {% endblock %}
 
 {% block content %}
-{% if teams|length == 0 %}
-	<div class="container well">
+{% if teams|length == 0 %} <!-- NEW TEAM -->
+	<div class="my-container">
 		<div class="row">
 			<div class="col-md-12 form-question">
 				{% trans "You don't have any team yet. Do you want to create one ?" %}
@@ -50,8 +85,6 @@
 			</div>
 
 		</div>
-	</div>
-	<div class="container well">
 		<form action="#" method="post" class="form create-team hide-me" id="connection-form">
 			{% csrf_token %}
 
@@ -72,10 +105,10 @@
 	    			{% bootstrap_field create_team_form.p_number %}
 			    </div>
 			    <div class="col-md-5" id="">
-	    			{% bootstrap_field create_team_form.p_name %}
+	    			{% bootstrap_field create_team_form.p_position %}
 			    </div>
 			    <div class="col-md-5" id="">
-	    			{% bootstrap_field create_team_form.p_position %}
+	    			{% bootstrap_field create_team_form.p_name %}
 			    </div>
 			</div>
 
@@ -83,68 +116,179 @@
 			<legend></legend>
 		    <div class="row">
 				<div class="col-md-offset-6 col-md-3">
-					<a href="javascript:history.back()" class="btn btn-warning form-btn" id="cancel-btn"><span class="glyphicon glyphicon-floppy-remove" id="log-in-logo"></span><span class="button-text"> {% trans "Cancel changes" %}</span></a>
+					<a href="javascript:history.back()" class="btn btn-warning form-btn"><span class="glyphicon glyphicon-floppy-remove"></span> {% trans "Cancel changes" %}</a>
 				</div>
 				<div class="col-md-3">
-				    <button type="submit" class="btn btn-success form-btn" id="save-btn"><span class="glyphicon glyphicon-floppy-save" id="log-in-logo"></span><span class="button-text"> {% trans "Save changes" %}</span></button>
+				    <button type="submit" class="btn btn-success form-btn" id="save-btn"><span class="glyphicon glyphicon-floppy-save"></span> {% trans "Save changes" %}</button>
 				</div>
 			</div>
 			<span id="create-new-team" hidden>{% bootstrap_field create_team_form.new_team %}</span>
 		</form>
 	</div>
 
-{% else %}
-	<div class="container well">
+{% else %} <!-- Display existing teams -->
+	<div class="my-container">
 	{% for t in teams %}
 
 		<legend>{% trans "Team" %} : <b>{{ t.name }}</b></legend>
-		<legend>{% trans "Coach" %} : <b>{{ t.coach }}</b></legend>
-		
-		<legend>{% trans "Players" %}</legend>
-		{% for p in t.player_set.all %}
+		<div class="row">
+		    <div class="col-md-2 form-label">
+				{% trans "Coach" %}
+		    </div>
+		    <div class="col-md-2 form-label">
+				{% trans "Reroll" %}
+			</div>
+			<div class="col-md-2 form-label">
+				{% trans "Team value" %}
+			</div>
+			<div class="col-md-2 form-label">
+				{% trans "Treasury" %}
+			</div>
+			<div class="col-md-2 form-label">
+				{% trans "Popularity" %}
+			</div>
+		</div>
+		<div class="row">
+		    <div class="col-md-2">
+				{{ t.coach }}
+		    </div>
+			<div class="col-md-2">
+				{{ t.reroll}}
+			</div>
+			<div class="col-md-2">
+				{{ t.value|intcomma }}
+			</div>
+			<div class="col-md-2">
+				{{ t.treasury|intcomma }}
+			</div>
+			<div class="col-md-2">
+				{{ t.pop }}
+			</div>
+		</div>
+
+		<div class="separator"></div>
+		<legend>{% trans "Assistants" %}</legend>
+		<div class="row">
+		    <div class="col-md-2 form-label">
+				{% trans "Apothicary" %} {% if not t.apo %}<a href="#"class="glyphicon glyphicon-plus my-a add"></a>{% endif %}
+		    </div>
+		    <div class="col-md-2 form-label"> 
+				{% trans "Pom-pom girls" %} <a href="#"class="glyphicon glyphicon-plus my-a add"></a>
+			</div>
+			<div class="col-md-2 form-label">
+				{% trans "Assistant coaches" %} <a href="#"class="glyphicon glyphicon-plus my-a add"></a>
+			</div>
+		</div>
+		<div class="row">
+		    <div class="col-md-2">
+				{% if t.apo %}
+					<span class="glyphicon glyphicon-ok"></span>
+				{% else %}
+					<span class="glyphicon glyphicon-remove"></span>
+				{% endif %}
+		    </div>
+			<div class="col-md-2">
+				{{ t.pompom}}
+			</div>
+			<div class="col-md-2">
+				{{ t.assistant }}
+			</div>
+		</div>
+
+		<div class="separator"></div>
+		<legend>{% trans "Players" %} - <i>{{ t.size }}/16</i></legend>
+		{% for p in t.player_set.all|dictsort:"number" %}
+
 			{% if forloop.first %}
 			<div class="row">
-			    <div class="col-md-2 form-label">
+			    <div class="col-md-1 form-label">
 					{% trans "Number" %}
 			    </div>
-			    <div class="col-md-4 form-label">
+			    <div class="col-md-2 form-label">
 					{% trans "Position" %}
 			    </div>
-			    <div class="col-md-4 form-label">
+			    <div class="col-md-2 form-label">
 					{% trans "Name" %}
 				</div>
 				<div class="col-md-2 form-label">
+					{% trans "MA" %}-{% trans "ST" %}-{% trans "AG" %}-{% trans "AV" %}
+				</div>
+				<div class="col-md-1 form-label">
 					{% trans "XP" %}
+				</div>
+				<div class="col-md-2 form-label">
+					{% trans "Value" %}
+				</div>
+				<div class="col-md-2 form-label">
 				</div>
 			</div>
 			{% endif %}
-
-		    <div class="row">
-			    <div class="col-md-2">
+			<legend class="my-legend"></legend>
+		    <div class="row player-row">
+			    <div class="col-md-1">
 					#{{ p.number }}
 			    </div>
-			    <div class="col-md-4">
+			    <div class="col-md-2">
 					{{ p.position }}
 			    </div>
-			    <div class="col-md-4">
+			    <div class="col-md-2">
 					{{ p.name }}
 				</div>
 				<div class="col-md-2">
+					{{ p.ma }} - {{ p.st }} - {{ p.ag }} - {{ p.av }}
+				</div>
+				<div class="col-md-1">
 					{{ p.xp }}
+				</div>
+				<div class="col-md-2">
+					{{ p.value|intcomma }}
+				</div>
+				<div class="col-md-2">
+					<a href="#" class="glyphicon glyphicon-pencil my-a edit"></a> <a href="#" class="glyphicon glyphicon-trash my-a delete"></a>
 				</div>
 			</div>
 		{% endfor %}
 
-		<div class="separator"></div>
-		<legend></legend>
+		<div ></div>
+		<legend class="separator"></legend>		
+
 	    <div class="row">
-			<div class="col-md-offset-6 col-md-3">
-				<a href="#" class="btn btn-info" id=""><span class="glyphicon glyphicon-pencil"></span> {% trans "Edit team" %}</a>
+	    	<div class="col-md-2">
+				<a href="#" class="btn btn-danger" id="delete-team"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete team" %}</a>
 			</div>
-			<div class="col-md-3">
-			    <a href="#" class="btn btn-success" id=""><span class="glyphicon glyphicon-plus"></span> {% trans "Add a player" %}</a>
+			<div class="col-md-2">
+				<a href="#" class="btn btn-info" id="edit-team"><span class="glyphicon glyphicon-pencil"></span> {% trans "Edit team" %}</a>
+			</div>
+			<div class="col-md-2 col-md-offset-6 btn-right">
+			    <a href="#" class="btn btn-success" id="add-player"><span class="glyphicon glyphicon-plus"></span> {% trans "Add a player" %}</a>
 			</div>
 		</div>
+		<form action="#" method="post" class="form add-player hide-me" id="connection-form">
+			{% csrf_token %}
+
+			<legend class="separator">{% trans "New player" %}</legend>
+		    <div class="row">
+			    <div class="col-md-2">
+	    			{% bootstrap_field create_player_form.number %}
+			    </div>
+			    <div class="col-md-5">
+	    			{% bootstrap_field create_player_form.position %}
+			    </div>
+			    <div class="col-md-5">
+	    			{% bootstrap_field create_player_form.name %}
+			    </div>
+			</div>
+			<span id="create-new-player" hidden>{% bootstrap_field create_player_form.new_player %}</span>
+			<input type="hidden" value="{{ t.id }}" name="team_id">
+			<div class="row">
+				<div class="col-md-2 col-md-offset-8 btn-right">
+					<a href="#" class="btn btn-warning" id="cancel-add-player"><span class="glyphicon glyphicon-floppy-remove"></span> {% trans "Cancel" %}</a>
+				</div>
+				<div class="col-md-2 btn-right">
+				    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> {% trans "Add player" %}</button>
+				</div>
+			</div>
+		</form>
 	{% endfor %}
 	</div>
 {% endif %}
@@ -157,20 +301,47 @@
 			$('#settings-dropdown').hide();
 			$('#connected-dropdown').addClass("select-nav");
 			$('.alert').delay(5000).fadeOut(500);
-			$("form.create-team").hide()
+			$('form.create-team').hide()
+			$('form.add-player').hide()
+
 			$('.btn-answer.btn-success').hover(
 				function(){
-					$("form.hide-me").show(150)
+					$("form.create-team.hide-me").show(150)
 				},function(){
-					$("form.hide-me").hide(150)
+					$("form.create-team.hide-me").hide(150)
 			});
 			$('.btn-answer.btn-success').click(
 				function(){
 					$("form.create-team").show().removeClass('hide-me');
-					$('.btn-answer.btn-success').attr('disabled','disabled').removeClass("btn-success").addClass("btn-default");
+					$('#add').attr('disabled','disabled').removeClass("btn-success").addClass("btn-default");
 					$('.btn-answer.btn-danger').attr('disabled','disabled').removeClass("btn-danger").addClass("btn-default");
 					$('#create-new-team input').prop('checked',true);
-				});
+			});
+
+			$('#add-player').hover(
+				function(){
+					$("form.add-player.hide-me").show(150)
+				},function(){
+					$("form.add-player.hide-me").hide(150)
+			});
+			$('#add-player').click(
+				function(){
+					$("form.add-player.hide-me").show().removeClass('hide-me');
+					$('#delete-team').attr('disabled','disabled').removeClass("btn-danger").addClass("btn-default");
+					$('#edit-team').attr('disabled','disabled').removeClass("btn-info").addClass("btn-default");
+					$('#add-player').attr('disabled','disabled').removeClass("btn-success").addClass("btn-default");
+					$('#create-new-player input').prop('checked',true);
+			});
+
+			$('#cancel-add-player').click(
+				function(){
+					$("form.add-player").addClass('hide-me').hide(150);
+					$('#delete-team').removeAttr('disabled').removeClass("btn-default").addClass("btn-danger");
+					$('#edit-team').removeAttr('disabled').removeClass("btn-default").addClass("btn-info");
+					$('#add-player').removeAttr('disabled').removeClass("btn-default").addClass("btn-success");
+					$('#create-new-player input').prop('checked',false);
+
+			});
 		});
 	</script>
 {% endblock %}

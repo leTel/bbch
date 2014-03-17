@@ -6,3 +6,9 @@ class CreateTeamForm(forms.Form):
 	p_name = forms.CharField()
 	p_position = forms.CharField()
 	p_number = forms.IntegerField()
+
+class CreatePlayerForm(forms.Form):
+	name = forms.CharField()
+	position = forms.CharField()
+	number = forms.IntegerField()
+	new_player = forms.BooleanField(required=False)

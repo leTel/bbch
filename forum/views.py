@@ -6,7 +6,7 @@ import forum.models
 @login_required
 def index(request) :
 	context = {
-		'forums_set' : forum.models.Forum.objects.all(),
+		'forums_set' : forum.models.Forum.objects.all().order_by('name'),
 		'username' : request.user,
 		'loged_in' : request.user.is_authenticated(),
 	}
