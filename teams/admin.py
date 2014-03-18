@@ -1,5 +1,6 @@
 from django.contrib import admin
 import teams.models
+import rules.models
 
 class PlayersInLine(admin.StackedInline):
     model = teams.models.Player
@@ -13,7 +14,7 @@ class TeamAdmin(admin.ModelAdmin):
     inlines = [PlayersInLine]
 
 class PlayerAdmin(admin.ModelAdmin):
-	list_display = ('number', 'position', 'name', 'ma', 'st', 'ag', 'av')
+	list_display = ('number', 'position', 'name', 'ma', 'st', 'ag', 'av',)
 	search_fields = ['name', 'position']
 
 admin.site.register(teams.models.Team, TeamAdmin)

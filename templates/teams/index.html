@@ -43,8 +43,17 @@
 		margin-bottom: 1px;
 	}
 
-	.row.player-row:hover{
-		background-color: #ffffff;
+	.row.player-row{
+		padding-top: 2px;
+	}
+	.row.player-row:hover, .row.player-row a:hover{
+		background-color: #808080;
+		color: #e0e0e0;
+		text-decoration: none;
+	}
+
+	.row.player-row a{
+		color: #404040;;
 	}
 
 	.my-container{
@@ -55,9 +64,19 @@
 		border: 1px solid #eeeeee;
 	}
 
-	#btn-new-team{
-		margin-bottom: 20px;
+	.read-only-field input{
+		border: 0px;
+		background-color: transparent;
+
+	}
+
+	div.modal-content{
+		color : black ;
+	}
+
+	.add-player{
 		margin-left: 15px;
+		margin-top: 10px;
 	}
 
 </style>
@@ -133,13 +152,13 @@
 				</div>
 			</div>
 
-			<legend>{% trans "Treasury" %} - <i>{% trans "in KPO" %}</i></legend>
+			<legend>{% trans "Treasury" %}</legend>
 			<div class="row">
-			    <div class="col-md-3 form-label">
-					<span id="form-team-value">{% bootstrap_field create_team_form.value %}</span>
+			    <div class="col-md-2 form-label">
+			    	<span class="read-only-field" id="form-team-value">{% bootstrap_field create_team_form.value %}</span>
 			    </div>
-			    <div class="col-md-3 form-label">
-					<span id="form-treasury">{% bootstrap_field create_team_form.treasury %}</span>
+			    <div class="col-md-offset-2 col-md-2 form-label">
+					<span class="read-only-field" id="form-treasury">{% bootstrap_field create_team_form.treasury %}</span>
 				</div>
 			</div>
 
@@ -157,7 +176,6 @@
 	</div>
 
 {% else %} <!-- Display existing teams -->
-	<a href="{% url 'teams:index_new_team_url' %}" class="btn btn-success btn-lg" id="btn-new-team"><span class="glyphicon glyphicon-plus"></span> {% trans "Add new team" %}</a>
 	
 	<ul class="nav nav-tabs">
 	{% for t in teams %}
@@ -167,179 +185,217 @@
 			<li><a href="#{{ t.id }}" data-toggle="tab" id="nav-{{ t.id }}">{{ t.name }}</a></li>
 		{% endif %}
 	{% endfor %}
+		<li><a href="{% url 'teams:index_new_team_url' %}" id="btn-new-team"><span class="glyphicon glyphicon-plus"></span>{% trans "Add new team" %}</a></li>
 	</ul>
 
 	<div class="tab-content">
 	{% for t in teams %}
 		{% if forloop.first %}
-			<div class="tab-pane active fade in" id="{{ t.id }}">
+			<div class="tab-pane active" id="{{ t.id }}">
 		{% else %}
-			<div class="tab-pane fade" id="{{ t.id }}">
+			<div class="tab-pane" id="{{ t.id }}">
 		{% endif %}
-	<div class="my-container">
-		<legend>{% trans "Team" %} : <b>{{ t.name }}</b></legend>
-		<div class="row">
-		    <div class="col-md-2 form-label">
-				{% trans "Coach" %}
-		    </div>
-		    <div class="col-md-2 form-label">
-				{% trans "Reroll" %}
-			</div>
-			<div class="col-md-2 form-label">
-				{% trans "Team value" %}
-			</div>
-			<div class="col-md-2 form-label">
-				{% trans "Treasury" %}
-			</div>
-			<div class="col-md-2 form-label">
-				{% trans "Popularity" %}
-			</div>
-		</div>
-		<div class="row">
-		    <div class="col-md-2">
-				{{ t.coach }}
-		    </div>
-			<div class="col-md-2">
-				{{ t.reroll}}
-			</div>
-			<div class="col-md-2">
-				{{ t.value|intcomma }}
-			</div>
-			<div class="col-md-2">
-				{{ t.treasury|intcomma }}
-			</div>
-			<div class="col-md-2">
-				{{ t.pop }}
-			</div>
-		</div>
+				<div class="my-container">
+					<legend>{% trans "Team" %} : <b>{{ t.name }}</b></legend>
+					<div class="row">
+					    <div class="col-md-2 form-label">
+							{% trans "Coach" %}
+					    </div>
+					    <div class="col-md-2 form-label">
+							{% trans "Reroll" %}
+						</div>
+						<div class="col-md-2 form-label">
+							{% trans "Team value" %}
+						</div>
+						<div class="col-md-2 form-label">
+							{% trans "Treasury" %}
+						</div>
+						<div class="col-md-2 form-label">
+							{% trans "Popularity" %}
+						</div>
+					</div>
+					<div class="row">
+					    <div class="col-md-2">
+							{{ t.coach }}
+					    </div>
+						<div class="col-md-2">
+							{{ t.reroll}}
+						</div>
+						<div class="col-md-2">
+							{{ t.value|intcomma }}
+						</div>
+						<div class="col-md-2">
+							{{ t.treasury|intcomma }}
+						</div>
+						<div class="col-md-2">
+							{{ t.pop }}
+						</div>
+					</div>
 
-		<div class="separator"></div>
-		<legend>{% trans "Assistants" %}</legend>
-		<div class="row">
-		    <div class="col-md-2 form-label">
-				{% trans "Apothicary" %} {% if not t.apo %}<a href="#"class="glyphicon glyphicon-plus my-a add"></a>{% endif %}
-		    </div>
-		    <div class="col-md-2 form-label"> 
-				{% trans "Pom-pom girls" %} <a href="#"class="glyphicon glyphicon-plus my-a add"></a>
-			</div>
-			<div class="col-md-2 form-label">
-				{% trans "Assistant coaches" %} <a href="#"class="glyphicon glyphicon-plus my-a add"></a>
-			</div>
-		</div>
-		<div class="row">
-		    <div class="col-md-2">
-				{% if t.apo %}
-					<span class="glyphicon glyphicon-ok"></span>
-				{% else %}
-					<span class="glyphicon glyphicon-remove"></span>
-				{% endif %}
-		    </div>
-			<div class="col-md-2">
-				{{ t.pompom}}
-			</div>
-			<div class="col-md-2">
-				{{ t.assistant }}
-			</div>
-		</div>
+					<div class="separator"></div>
+					<legend>{% trans "Assistants" %}</legend>
+					<div class="row">
+					    <div class="col-md-2 form-label">
+							{% trans "Apothicary" %} {% if not t.apo %}<a href="#"class="glyphicon glyphicon-plus my-a add"></a> {% else %}<a href="#"class="glyphicon glyphicon-minus my-a delete"></a>{% endif %}
+					    </div>
+					    <div class="col-md-2 form-label"> 
+							{% trans "Pom-pom girls" %} <a href="#"class="glyphicon glyphicon-plus my-a add"> </a>{% if t.pompom > 0 %}<a href="#"class="glyphicon glyphicon-minus my-a delete"></a>{% endif %}
+						</div>
+						<div class="col-md-2 form-label">
+							{% trans "Assistant coaches" %} <a href="#"class="glyphicon glyphicon-plus my-a add"> </a>{% if t.assistant > 0 %}<a href="#"class="glyphicon glyphicon-minus my-a delete"></a>{% endif %}
+						</div>
+					</div>
+					<div class="row">
+					    <div class="col-md-2">
+							{% if t.apo %}
+								<span class="glyphicon glyphicon-ok"></span>
+							{% else %}
+								<span class="glyphicon glyphicon-remove"></span>
+							{% endif %}
+					    </div>
+						<div class="col-md-2">
+							{{ t.pompom}}
+						</div>
+						<div class="col-md-2">
+							{{ t.assistant }}
+						</div>
+					</div>
 
-		<div class="separator"></div>
-		<legend>{% trans "Players" %} - <i>{{ t.size }}/16</i></legend>
-		{% for p in t.player_set.all|dictsort:"number" %}
+					<div class="separator"></div>
+					<legend>{% trans "Players" %} - <i>{{ t.size }}/16</i></legend>
+					{% for p in t.player_set.all|dictsort:"number" %}
+						{% if forloop.first %}
+						<div class="row">
+								<div class="col-md-5">
+							    <div class="col-md-1 form-label">
+							    	#
+							    </div>
+							    <div class="col-md-4 form-label">
+									{% trans "Position" %}
+							    </div>
+							    <div class="col-md-4 form-label">
+									{% trans "Name" %}
+								</div>
+								<div class="col-md-3 form-label">
+									{% trans "MA" %}-{% trans "ST" %}-{% trans "AG" %}-{% trans "AV" %}
+								</div>
+							</div>
+							<div class="col-md-7">
+								<div class="col-md-8 form-label">
+									{% trans "Skills" %}
+								</div>
+								<div class="col-md-1 form-label">
+									{% trans "XP" %}
+								</div>
+								<div class="col-md-1 form-label">
+									{% trans "Value" %}
+								</div>
+								<div class="col-md-2 form-label">
+								</div>
+							</div>
+						</div>
+						{% endif %}
+						<legend class="my-legend"></legend>
+					    <div class="row player-row">
+					    	<div class="col-md-5">
+							    <div class="col-md-1">
+									#{{ p.number }}
+							    </div>
+							    <div class="col-md-4">
+									{{ p.position }}
+							    </div>
+							    <div class="col-md-4">
+									{{ p.name }}
+								</div>
+								<div class="col-md-3">
+									{{ p.ma }} - {{ p.st }} - {{ p.ag }} - {{ p.av }}
+								</div>
+							</div>
+							<div class="col-md-7">
+								<div class="col-md-8">
+									{% for s in p.skillFR.all %}
+										{% if forloop.last %}
+											<a data-toggle="modal" href="#modal{{ s.id }}">{{ s }}</a>
 
-			{% if forloop.first %}
-			<div class="row">
-			    <div class="col-md-1 form-label">
-					{% trans "Number" %}
-			    </div>
-			    <div class="col-md-2 form-label">
-					{% trans "Position" %}
-			    </div>
-			    <div class="col-md-2 form-label">
-					{% trans "Name" %}
-				</div>
-				<div class="col-md-2 form-label">
-					{% trans "MA" %}-{% trans "ST" %}-{% trans "AG" %}-{% trans "AV" %}
-				</div>
-				<div class="col-md-1 form-label">
-					{% trans "XP" %}
-				</div>
-				<div class="col-md-2 form-label">
-					{% trans "Value" %}
-				</div>
-				<div class="col-md-2 form-label">
-				</div>
-			</div>
-			{% endif %}
-			<legend class="my-legend"></legend>
-		    <div class="row player-row">
-			    <div class="col-md-1">
-					#{{ p.number }}
-			    </div>
-			    <div class="col-md-2">
-					{{ p.position }}
-			    </div>
-			    <div class="col-md-2">
-					{{ p.name }}
-				</div>
-				<div class="col-md-2">
-					{{ p.ma }} - {{ p.st }} - {{ p.ag }} - {{ p.av }}
-				</div>
-				<div class="col-md-1">
-					{{ p.xp }}
-				</div>
-				<div class="col-md-2">
-					{{ p.value|intcomma }}
-				</div>
-				<div class="col-md-2">
-					<a href="#" class="glyphicon glyphicon-pencil my-a edit"></a> <a href="#" class="glyphicon glyphicon-trash my-a delete"></a>
-				</div>
-			</div>
-		{% endfor %}
+										{% else %}
+											<a data-toggle="modal" href="#modal{{ s.id }}">{{ s }},</a>
+										{% endif %}
 
-		<legend class="separator"></legend>		
+											<div class="modal fade" id="modal{{ s.id }}" role="dialog">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+															<h4 class="modal-title">{{ s.name }} -<i> {% trans "skill type" %} : {{ s.s_type.name }}</i></h4>
+														</div>
+														<div class="modal-body">
+															{{ s.description }}
+														</div>
+													</div>
+												</div>
+											</div>
+									{% endfor %}
+								</div>
+								<div class="col-md-1">
+									{{ p.xp }}
+								</div>
+								<div class="col-md-1">
+									{{ p.value|intcomma }}
+								</div>
+								<div class="col-md-2">
+									<a href="#" class="glyphicon glyphicon-pencil my-a edit"></a> 
+									<a href="{% url 'teams:delete_player_url' player_id=p.id %}" class="glyphicon glyphicon-trash my-a delete"></a>
+								</div>
+							</div>
+						</div>
+						{% if forloop.last %}
+						<a href="#"class="glyphicon glyphicon-plus my-a add add-player"></a>
+						{% endif %}
+					{% empty %}
+						<a href="#"class="glyphicon glyphicon-plus my-a add add-player"></a>
+					{% endfor %}
 
-	    <div class="row">
-	    	<div class="col-md-2">
-				<a href="{% url 'teams:delete_team_url' team_id=t.id %}" class="btn btn-danger delete-team"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete team" %}</a>
-			</div>
-			<div class="col-md-2">
-				<a href="#" class="btn btn-info edit-team"><span class="glyphicon glyphicon-pencil"></span> {% trans "Edit team" %}</a>
-			</div>
-			<div class="col-md-2 col-md-offset-6 btn-right">
-			    <a href="#" class="btn btn-success add-player"><span class="glyphicon glyphicon-plus"></span> {% trans "Add a player" %}</a>
-			</div>
-		</div>
-		<form action="#" method="post" class="form add-player hide-me">
-			{% csrf_token %}
+					<legend class="separator"></legend>		
 
-			<legend class="separator">{% trans "New player" %}</legend>
-		    <div class="row">
-			    <div class="col-md-2">
-	    			{% bootstrap_field create_player_form.number %}
-			    </div>
-			    <div class="col-md-5">
-	    			{% bootstrap_field create_player_form.position %}
-			    </div>
-			    <div class="col-md-5">
-	    			{% bootstrap_field create_player_form.name %}
-			    </div>
-			</div>
-			<span class="create-new-player" hidden>{% bootstrap_field create_player_form.new_player %}</span>
-			<input type="hidden" value="{{ t.id }}" name="team_id">
-			<div class="row">
-				<div class="col-md-2 col-md-offset-8 btn-right">
-					<a href="#" class="btn btn-warning cancel-add-player"><span class="glyphicon glyphicon-floppy-remove"></span> {% trans "Cancel" %}</a>
+				    <div class="row">
+				    	<div class="col-md-2">
+							<a href="{% url 'teams:delete_team_url' team_id=t.id %}" class="btn btn-danger delete-team"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete team" %}</a>
+						</div>
+					</div>
+					<form action="#" method="post" class="form add-player-form hide-me">
+						{% csrf_token %}
+
+						<legend class="separator">{% trans "New player" %}</legend>
+					    <div class="row">
+						    <div class="col-md-2">
+				    			{% bootstrap_field create_player_form.number %}
+						    </div>
+						    <div class="col-md-5">
+				    			{% bootstrap_field create_player_form.position %}
+						    </div>
+						    <div class="col-md-5">
+				    			{% bootstrap_field create_player_form.name %}
+						    </div>
+						</div>
+						<span class="create-new-player" hidden>{% bootstrap_field create_player_form.new_player %}</span>
+						<input type="hidden" value="{{ t.id }}" name="team_id">
+						<div class="row">
+							<div class="col-md-2 col-md-offset-8 btn-right">
+								<a href="#" class="btn btn-warning cancel-add-player"><span class="glyphicon glyphicon-floppy-remove"></span> {% trans "Cancel" %}</a>
+							</div>
+							<div class="col-md-2 btn-right">
+							    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> {% trans "Add player" %}</button>
+							</div>
+						</div>
+					</form>
 				</div>
-				<div class="col-md-2 btn-right">
-				    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> {% trans "Add player" %}</button>
-				</div>
 			</div>
-		</form>
-	</div>
-	</div><!--end of div content-tab-->
 	{% endfor %}
-	</div>
+	</div><!--end of div content-tab-->
+		  
 {% endif %}
+
+
 
 
 
@@ -349,21 +405,21 @@
 			$('#settings-dropdown').hide();
 			$('#connected-dropdown').addClass("select-nav");
 			$('.alert').delay(5000).fadeOut(500);
-			$('form.add-player').hide()
+			$('form.add-player-form').hide();
 			$('#nav-{{ tab_id }}').tab('show');
 
 
 			if({{ teams|length }} == 0){
-				$('form.create-team').hide()
+				$('form.create-team').hide();
 			}else{
 				$('#create-new-team input').prop('checked',true);
 			}
 
 			$('.btn-answer.btn-success').hover(
 				function(){
-					$("form.create-team.hide-me").show(150)
+					$("form.create-team.hide-me").show(150);
 				},function(){
-					$("form.create-team.hide-me").hide(150)
+					$("form.create-team.hide-me").hide(150);
 			});
 			$('.btn-answer.btn-success').click(
 				function(){
@@ -375,52 +431,70 @@
 
 			$('.add-player').hover(
 				function(){
-					$("form.add-player.hide-me").show(150)
+					$("form.add-player-form.hide-me").show(150);
 				},function(){
-					$("form.add-player.hide-me").hide(150)
+					$("form.add-player-form.hide-me").hide(150);
 			});
 			$('.add-player').click(
 				function(){
-					$("form.add-player.hide-me").show().removeClass('hide-me');
+					$("form.add-player-form.hide-me").show().removeClass('hide-me');
 					$('.delete-team').attr('disabled','disabled').removeClass("btn-danger").addClass("btn-default");
-					$('.edit-team').attr('disabled','disabled').removeClass("btn-info").addClass("btn-default");
-					$('.add-player').attr('disabled','disabled').removeClass("btn-success").addClass("btn-default");
+					$('.add-player').attr('disabled','disabled')
 					$('.create-new-player input').prop('checked',true);
+
+
 			});
 
 			$('.cancel-add-player').click(
 				function(){
-					$("form.add-player").addClass('hide-me').hide(150);
+					$('form.add-player-form').addClass('hide-me').hide(150);
 					$('.delete-team').removeAttr('disabled').removeClass("btn-default").addClass("btn-danger");
-					$('.edit-team').removeAttr('disabled').removeClass("btn-default").addClass("btn-info");
-					$('.add-player').removeAttr('disabled').removeClass("btn-default").addClass("btn-success");
+					$('.add-player').removeAttr('disabled')
 					$('.create-new-player input').prop('checked',false);
 
 			});
 
 			$('.create-team-field input').change(
 				function(){
-					ReCalc()
+					ReCalc();
 					
 			});
 
 			var ReCalc = function(){
-				$('#form-team-value input').val(
-					$('#form-reroll input').val() * $('#form-reroll-value input').val() +
-					$('#form-pop input').val() * 10 +
-					$('#form-pompom input').val() * 10 +
-					$('#form-assistant input').val() * 10
-				);
+				if($('#form-apo input').prop('checked') == true){
+					$('#form-team-value input').val(
+						50000 +
+						$('#form-reroll input').val() * $('#form-reroll-value input').val() +
+						$('#form-pop input').val() * 10000 +
+						$('#form-pompom input').val() * 10000 +
+						$('#form-assistant input').val() * 10000
+					);
+				}else{
+					$('#form-team-value input').val(
+						$('#form-reroll input').val() * $('#form-reroll-value input').val() +
+						$('#form-pop input').val() * 10000 +
+						$('#form-pompom input').val() * 10000 +
+						$('#form-assistant input').val() * 10000
+					);
+				}
 
-
-
-				$('#form-treasury input').val(1000
-					- $('#form-reroll input').val() * $('#form-reroll-value input').val() 
-					- $('#form-pop input').val() * 10
-					- $('#form-pompom input').val() * 10
-					- $('#form-assistant input').val() * 10
-
-				);
+				if($('#form-apo input').prop('checked') == true){
+					$('#form-treasury input').val(
+						950000
+						- $('#form-reroll input').val() * $('#form-reroll-value input').val() 
+						- $('#form-pop input').val() * 10000
+						- $('#form-pompom input').val() * 10000
+						- $('#form-assistant input').val() * 10000
+					);
+				}else{
+					$('#form-treasury input').val(
+						1000000
+						- $('#form-reroll input').val() * $('#form-reroll-value input').val() 
+						- $('#form-pop input').val() * 10000
+						- $('#form-pompom input').val() * 10000
+						- $('#form-assistant input').val() * 10000
+					);
+				}
 			};
 		});
 	</script>

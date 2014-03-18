@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Rule(models.Model) :
 	name = models.CharField(max_length=30)
 	language = models.ForeignKey('Language')

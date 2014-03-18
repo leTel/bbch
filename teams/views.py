@@ -22,7 +22,7 @@ def index(request, add_new_team=False) :
 			add_player = p_form.cleaned_data['new_player']
 		else :
 			add_player  = False
-		#import ipdb; ipdb.set_trace()
+
 		if create_new_team :
 			if t_form.is_valid() :
 				
@@ -51,6 +51,7 @@ def index(request, add_new_team=False) :
 				team_set = teams.models.Team.objects.filter(coach=request.user.username)
 				player_form = teams.forms.CreatePlayerForm()
 				context = {
+					'tab_id': team.id,
 					'create_player_form' : player_form,
 					'teams' : team_set,
 					'username' : request.user,
@@ -65,10 +66,12 @@ def index(request, add_new_team=False) :
 				position = p_form.cleaned_data['position']
 				number = p_form.cleaned_data['number']
 				team_id = request.POST.get('team_id')
-				team = teams.models.Team.objects.get(coach=request.user.username, id=team_id)
 
+				team = teams.models.Team.objects.get(coach=request.user.username, id=team_id)
 				team.player_set.create(name=name, position=position, number=number)
 				team.size = team.player_set.count()
+				team.value = team.value + team.player_set.get(number=number).value
+				team.treasury = team.treasury - team.player_set.get(number=number).value
 				team.save()
 				
 				team_set = teams.models.Team.objects.filter(coach=request.user.username)
@@ -124,6 +127,26 @@ def delete_team(request, team_id=-1):
 	player_form = teams.forms.CreatePlayerForm()
 
 	context = {
+		'create_player_form' : player_form,
+		'create_team_form' : team_form,
+		'teams' : team_set,
+		'username' : request.user,
+		'loged_in' : request.user.is_authenticated(),
+	}
+
+	return render(request, 'teams/index.html', context)
+
+def delete_player(request, player_id=-1):
+	player = teams.models.Player.objects.get(id=player_id)
+	team_id = player.team_id
+	player.delete()
+
+	team_set = teams.models.Team.objects.filter(coach=request.user.username)
+	team_form = teams.forms.CreateTeamForm()
+	player_form = teams.forms.CreatePlayerForm()
+
+	context = {
+		'tab_id': team_id,
 		'create_player_form' : player_form,
 		'create_team_form' : team_form,
 		'teams' : team_set,
