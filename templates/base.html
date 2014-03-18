@@ -62,11 +62,11 @@
                 <div class="row">
                     <div class="col-md-8">
                         <ul class="nav navbar-nav">
-                            <li id="home-nav" class="nav-item"><a href="/home/"><span class="glyphicon glyphicon-home"></span> {% trans "Home" %}</a></li>
+                            <li id="home-nav" class="nav-item"><a href="{% url 'bbch_home_url' %}"><span class="glyphicon glyphicon-home"></span> {% trans "Home" %}</a></li>
                             <li id="map-nav" class="separator-next nav-item"><a href="https://mapsengine.google.com/map/edit?mid=ztNnXqVHx3dc.kK3MnqCB3NEo&hl=fr" target="_blank"><span class="glyphicon glyphicon-globe"></span> {% trans "Map" %}</a></li>
-                            <li id="rules-nav" class="nav-item"><a href="/rules/"><span class="glyphicon glyphicon-book"></span> {% trans "Rules" %}</a></li>
-                            <li id="skills-nav" class="separator-next nav-item"><a href="/rules/skills"><span class="glyphicon glyphicon-flash"></span> {% trans "Skills" %}</a></li>
-                            <li id="forum-nav" class="nav-item separator-next"><a href="/forum/"><span class="glyphicon glyphicon-list-alt"></span> {% trans "League" %}</a></li>
+                            <li id="rules-nav" class="nav-item"><a href="{% url 'rules:index_url' %}"><span class="glyphicon glyphicon-book"></span> {% trans "Rules" %}</a></li>
+                            <li id="skills-nav" class="separator-next nav-item"><a href="{% url 'rules:s_index_url' %}"><span class="glyphicon glyphicon-flash"></span> {% trans "Skills" %}</a></li>
+                            <li id="forum-nav" class="nav-item separator-next"><a href="{% url 'forum:index_url' %}"><span class="glyphicon glyphicon-list-alt"></span> {% trans "Leagues" %}</a></li>
                             {% if user.is_superuser or user.is_staff %}
                                 <li class="nav-item"><a href="/rosetta/" target="_blank"><span class="glyphicon glyphicon-globe"></span> {% trans "Translation" %}</a></li>
                             {% endif %}
@@ -108,15 +108,15 @@
                                 <li id="connected-dropdown" class="dropdown">
                                     <a href="#" class="dropdown-toggle"><span id="dropdown-text">{{ username }}</span><span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/teams/"><span class="glyphicon glyphicon-user"></span> {% trans "My teams" %}</a></li>
-                                        <li><a href="/auth/profile"><span class="glyphicon glyphicon-list"></span> {% trans "Profile" %}</a></li>
+                                        <li><a href="{% url 'teams:index_url' %}"><span class="glyphicon glyphicon-user"></span> {% trans "My teams" %}</a></li>
+                                        <li><a href="{% url 'auth:user_profile_url' %}"><span class="glyphicon glyphicon-list"></span> {% trans "Profile" %}</a></li>
                                         <li><a href="#"><span class="glyphicon glyphicon-wrench"></span> {% trans "Account preferences" %}</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="/auth/logout/"><span class="glyphicon glyphicon-log-out"></span> {% trans "Logout" %}</a></li>
+                                        <li><a href="{% url 'auth:connection_logout_url' %}"><span class="glyphicon glyphicon-log-out"></span> {% trans "Logout" %}</a></li>
                                     </ul>
                                 </li>
                             {% else %}
-                                <li id="connection-nav"><a href="/auth/"><span id="connection-btn-text" class="button-text"><span class="glyphicon glyphicon-log-in" id="log-in-logo"></span> {% trans "Connection" %}</span></a></li>
+                                <li id="connection-nav"><a href="{% url 'auth:connection_url' %}"><span id="connection-btn-text" class="button-text"><span class="glyphicon glyphicon-log-in" id="log-in-logo"></span> {% trans "Connection" %}</span></a></li>
                             {% endif %}
                         </ul>
                     </div>

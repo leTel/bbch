@@ -115,8 +115,20 @@ def index(request, add_new_team=False) :
 
 		return render(request, 'teams/index.html', context)
 
-def delete_team(request):
-    team = teams.models.Team.objects.get(id=0)
-    team.delete()
+def delete_team(request, team_id=-1):
+	team = teams.models.Team.objects.get(id=team_id)
+	team.delete()
 
-    return render(request, 'teams/index.html', context)
+	team_set = teams.models.Team.objects.filter(coach=request.user.username)
+	team_form = teams.forms.CreateTeamForm()
+	player_form = teams.forms.CreatePlayerForm()
+
+	context = {
+		'create_player_form' : player_form,
+		'create_team_form' : team_form,
+		'teams' : team_set,
+		'username' : request.user,
+		'loged_in' : request.user.is_authenticated(),
+	}
+
+	return render(request, 'teams/index.html', context)

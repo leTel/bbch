@@ -157,7 +157,7 @@
 	</div>
 
 {% else %} <!-- Display existing teams -->
-	<a href="/teams/new-team/" class="btn btn-success btn-lg" id="btn-new-team"><span class="glyphicon glyphicon-plus"></span> {% trans "Add new team" %}</a>
+	<a href="{% url 'teams:index_new_team_url' %}" class="btn btn-success btn-lg" id="btn-new-team"><span class="glyphicon glyphicon-plus"></span> {% trans "Add new team" %}</a>
 	
 	<ul class="nav nav-tabs">
 	{% for t in teams %}
@@ -296,12 +296,11 @@
 			</div>
 		{% endfor %}
 
-		<div ></div>
 		<legend class="separator"></legend>		
 
 	    <div class="row">
 	    	<div class="col-md-2">
-				<a href="{% url 'delete_team_url' %}" class="btn btn-danger delete-team"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete team" %}</a>
+				<a href="{% url 'teams:delete_team_url' team_id=t.id %}" class="btn btn-danger delete-team"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete team" %}</a>
 			</div>
 			<div class="col-md-2">
 				<a href="#" class="btn btn-info edit-team"><span class="glyphicon glyphicon-pencil"></span> {% trans "Edit team" %}</a>

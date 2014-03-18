@@ -136,7 +136,7 @@
 				<legend></legend>
 			    <div class="row">
 					<div class="col-md-offset-6 col-md-3">
-						<a href="/auth/profile" class="btn btn-warning form-btn" id="cancel-btn"><span class="glyphicon glyphicon-floppy-remove" id="log-in-logo"></span><span class="button-text"> {% trans "Cancel changes" %}</span></a>
+						<a href="{% url 'auth:user_profile_url' %}" class="btn btn-warning form-btn" id="cancel-btn"><span class="glyphicon glyphicon-floppy-remove" id="log-in-logo"></span><span class="button-text"> {% trans "Cancel changes" %}</span></a>
 					</div>
 					<div class="col-md-3">
 					    <button type="submit" class="btn btn-success form-btn" id="save-btn"><span class="glyphicon glyphicon-floppy-save" id="log-in-logo"></span><span class="button-text"> {% trans "Save changes" %}</span></button>

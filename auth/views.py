@@ -42,7 +42,7 @@ def connection(request, logout_flag=False, log_required=False):
 				 		'username' : request.user,
 				 		'loged_in' : request.user.is_authenticated(),
 				 	}
-				 	return HttpResponseRedirect(reverse('home_log_message'))
+				 	return HttpResponseRedirect(reverse('home_log_message_url'))
 					
 				else:
 					# Return a 'disabled account' error message

@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-17 15:59+0100\n"
-"PO-Revision-Date: 2014-03-17 15:57+0100\n"
+"POT-Creation-Date: 2014-03-18 11:02+0100\n"
+"PO-Revision-Date: 2014-03-18 11:03+0100\n"
 "Last-Translator: Laurent Lugon Moulin <laurent.lugon@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
@@ -31,9 +31,43 @@ msgstr "Anglais"
 msgid "French"
 msgstr "Français"
 
-#: teams/forms.py:5
-msgid "Team name"
-msgstr "Nom de l'équipe"
+#: teams/forms.py:5 templates/forum/index.html:34
+#: templates/rules/index.html:75 templates/teams/index.html:258
+msgid "Name"
+msgstr "Nom"
+
+#: teams/forms.py:6
+msgid "Reroll value - in KPO"
+msgstr "Valeur de la relance - en KPO"
+
+#: teams/forms.py:7 templates/teams/index.html:186
+msgid "Reroll"
+msgstr "Relance"
+
+#: teams/forms.py:9 templates/teams/index.html:220
+msgid "Apothicary"
+msgstr "Apothicaire"
+
+#: teams/forms.py:10
+msgid "Assistant"
+msgstr "Assistant"
+
+#: teams/forms.py:11 templates/teams/index.html:223
+msgid "Pom-pom girls"
+msgstr "Pom-pom girls"
+
+#: teams/forms.py:12 templates/teams/index.html:195
+msgid "Popularity"
+msgstr "Popularité"
+
+#: teams/forms.py:13 templates/teams/index.html:189
+msgid "Team value"
+msgstr "Valeur d'équipe"
+
+#: teams/forms.py:14 templates/teams/index.html:136
+#: templates/teams/index.html.py:192
+msgid "Treasury"
+msgstr "Trésorerie"
 
 #: templates/base.html:65 templates/bbch/home.html:6
 msgid "Home"
@@ -52,9 +86,9 @@ msgstr "Règles"
 msgid "Skills"
 msgstr "Compétences"
 
-#: templates/base.html:69
-msgid "League"
-msgstr "Ligue"
+#: templates/base.html:69 templates/forum/index.html:21
+msgid "Leagues"
+msgstr "Ligues"
 
 #: templates/base.html:71
 msgid "Translation"
@@ -158,11 +192,11 @@ msgstr "Staff"
 msgid "Super user"
 msgstr "Super utilisateur"
 
-#: templates/auth/user_profile.html:139 templates/teams/index.html:136
+#: templates/auth/user_profile.html:139 templates/teams/index.html:149
 msgid "Cancel changes"
 msgstr "Annuler"
 
-#: templates/auth/user_profile.html:142 templates/teams/index.html:139
+#: templates/auth/user_profile.html:142
 msgid "Save changes"
 msgstr "Sauver"
 
@@ -181,15 +215,6 @@ msgstr "Afficher toutes les news"
 #: templates/bbch/home.html:18
 msgid "You're logged in"
 msgstr "Vous êtes connecté"
-
-#: templates/forum/index.html:21
-msgid "Leagues"
-msgstr "Ligues"
-
-#: templates/forum/index.html:34 templates/rules/index.html:77
-#: templates/teams/index.html:245
-msgid "Name"
-msgstr "Nom"
 
 #: templates/forum/index.html:36
 msgid "Area"
@@ -211,15 +236,15 @@ msgstr "Format bouton"
 msgid "Show as table"
 msgstr "Format tableau"
 
-#: templates/rules/index.html:78
+#: templates/rules/index.html:76
 msgid "Comments"
 msgstr "Commentaires"
 
-#: templates/rules/index.html:79
+#: templates/rules/index.html:77
 msgid "Language"
 msgstr "Langue"
 
-#: templates/rules/index.html:80
+#: templates/rules/index.html:78
 msgid "Release date"
 msgstr "Date de parution"
 
@@ -275,109 +300,99 @@ msgstr "Non"
 msgid "Yes"
 msgstr "Oui"
 
-#: templates/teams/index.html:101 templates/teams/index.html.py:167
+#: templates/teams/index.html:101 templates/teams/index.html.py:180
 msgid "Team"
 msgstr "Equipe"
 
-#: templates/teams/index.html:107 templates/teams/index.html.py:170
+#: templates/teams/index.html:107 templates/teams/index.html.py:183
 msgid "Coach"
 msgstr "Coach"
 
-#: templates/teams/index.html:120 templates/teams/index.html.py:204
+#: templates/teams/index.html:123 templates/teams/index.html.py:217
 msgid "Assistants"
 msgstr "Assistants"
 
-#: templates/teams/index.html:147
+#: templates/teams/index.html:136
+msgid "in KPO"
+msgstr "en KPO"
+
+#: templates/teams/index.html:152
+msgid "Continue"
+msgstr "Continuer"
+
+#: templates/teams/index.html:160
 msgid "Add new team"
 msgstr "Ajouter une équipe"
 
-#: templates/teams/index.html:173
-msgid "Reroll"
-msgstr "Relance"
-
-#: templates/teams/index.html:176
-msgid "Team value"
-msgstr "Valeur d'équipe"
-
-#: templates/teams/index.html:179
-msgid "Treasury"
-msgstr "Trésorerie"
-
-#: templates/teams/index.html:182
-msgid "Popularity"
-msgstr "Popularité"
-
-#: templates/teams/index.html:207
-msgid "Apothicary"
-msgstr "Apothicaire"
-
-#: templates/teams/index.html:210
-msgid "Pom-pom girls"
-msgstr "Pom-pom girls"
-
-#: templates/teams/index.html:213
+#: templates/teams/index.html:226
 msgid "Assistant coaches"
 msgstr "Coachs assistants"
 
-#: templates/teams/index.html:233
+#: templates/teams/index.html:246
 msgid "Players"
 msgstr "Joueurs"
 
-#: templates/teams/index.html:239
+#: templates/teams/index.html:252
 msgid "Number"
 msgstr "Numéro"
 
-#: templates/teams/index.html:242
+#: templates/teams/index.html:255
 msgid "Position"
 msgstr "Position"
 
-#: templates/teams/index.html:248
+#: templates/teams/index.html:261
 msgid "MA"
 msgstr "MO"
 
-#: templates/teams/index.html:248
+#: templates/teams/index.html:261
 msgid "ST"
 msgstr "FO"
 
-#: templates/teams/index.html:248
+#: templates/teams/index.html:261
 msgid "AG"
 msgstr "AG"
 
-#: templates/teams/index.html:248
+#: templates/teams/index.html:261
 msgid "AV"
 msgstr "AR"
 
-#: templates/teams/index.html:251
+#: templates/teams/index.html:264
 msgid "XP"
 msgstr "XP"
 
-#: templates/teams/index.html:254
+#: templates/teams/index.html:267
 msgid "Value"
 msgstr "Valeur"
 
-#: templates/teams/index.html:291
+#: templates/teams/index.html:303
 msgid "Delete team"
 msgstr "Supprimer l'équipe"
 
-#: templates/teams/index.html:294
+#: templates/teams/index.html:306
 msgid "Edit team"
 msgstr "Modifier l'équipe"
 
-#: templates/teams/index.html:297
+#: templates/teams/index.html:309
 msgid "Add a player"
 msgstr "Ajouter un joueur"
 
-#: templates/teams/index.html:303
+#: templates/teams/index.html:315
 msgid "New player"
 msgstr "Nouveau joueur"
 
-#: templates/teams/index.html:319
+#: templates/teams/index.html:331
 msgid "Cancel"
 msgstr "Annuler"
 
-#: templates/teams/index.html:322
+#: templates/teams/index.html:334
 msgid "Add player"
 msgstr "Ajouter un joueur"
+
+#~ msgid "Team name"
+#~ msgstr "Nom de l'équipe"
+
+#~ msgid "League"
+#~ msgstr "Ligue"
 
 #~ msgid "Forum"
 #~ msgstr "Forum"
