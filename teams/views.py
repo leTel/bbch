@@ -155,3 +155,66 @@ def delete_player(request, player_id=-1):
 	}
 
 	return render(request, 'teams/index.html', context)
+
+def add_apo(request, team_id=-1):
+	team = teams.models.Team.objects.get(id=team_id)
+	team.apo = True
+	team.treasury = team.treasury - 50000
+	team.value = team.value + 50000
+	team.save()
+
+	team_set = teams.models.Team.objects.filter(coach=request.user.username)
+	team_form = teams.forms.CreateTeamForm()
+	player_form = teams.forms.CreatePlayerForm()
+
+	context = {
+		'tab_id': team.id,
+		'create_player_form' : player_form,
+		'create_team_form' : team_form,
+		'teams' : team_set,
+		'username' : request.user,
+		'loged_in' : request.user.is_authenticated(),
+	}
+	return render(request, 'teams/index.html', context)
+
+def add_pompom(request, team_id=-1):
+	team = teams.models.Team.objects.get(id=team_id)
+	team.pompom += 1
+	team.treasury = team.treasury - 10000
+	team.value = team.value + 10000
+	team.save()
+
+	team_set = teams.models.Team.objects.filter(coach=request.user.username)
+	team_form = teams.forms.CreateTeamForm()
+	player_form = teams.forms.CreatePlayerForm()
+
+	context = {
+		'tab_id': team.id,
+		'create_player_form' : player_form,
+		'create_team_form' : team_form,
+		'teams' : team_set,
+		'username' : request.user,
+		'loged_in' : request.user.is_authenticated(),
+	}
+	return render(request, 'teams/index.html', context)
+
+def add_assistant(request, team_id=-1):
+	team = teams.models.Team.objects.get(id=team_id)
+	team.assistant += 1
+	team.treasury = team.treasury - 10000
+	team.value = team.value + 10000
+	team.save()
+
+	team_set = teams.models.Team.objects.filter(coach=request.user.username)
+	team_form = teams.forms.CreateTeamForm()
+	player_form = teams.forms.CreatePlayerForm()
+
+	context = {
+		'tab_id': team.id,
+		'create_player_form' : player_form,
+		'create_team_form' : team_form,
+		'teams' : team_set,
+		'username' : request.user,
+		'loged_in' : request.user.is_authenticated(),
+	}
+	return render(request, 'teams/index.html', context)

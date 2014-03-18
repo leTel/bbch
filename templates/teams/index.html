@@ -236,21 +236,21 @@
 					<legend>{% trans "Assistants" %}</legend>
 					<div class="row">
 					    <div class="col-md-2 form-label">
-							{% trans "Apothicary" %} {% if not t.apo %}<a href="#"class="glyphicon glyphicon-plus my-a add"></a> {% else %}<a href="#"class="glyphicon glyphicon-minus my-a delete"></a>{% endif %}
+							{% trans "Apothicary" %} {% if not t.apo %}<a href="{% url 'teams:add_apo_url' team_id=t.id %}"class="glyphicon glyphicon-plus my-a add"></a> {% else %}<a href="#"class="glyphicon glyphicon-minus my-a delete"></a>{% endif %}
 					    </div>
 					    <div class="col-md-2 form-label"> 
-							{% trans "Pom-pom girls" %} <a href="#"class="glyphicon glyphicon-plus my-a add"> </a>{% if t.pompom > 0 %}<a href="#"class="glyphicon glyphicon-minus my-a delete"></a>{% endif %}
+							{% trans "Pom-pom girls" %} <a href="{% url 'teams:add_pompom_url' team_id=t.id %}"class="glyphicon glyphicon-plus my-a add"> </a>{% if t.pompom > 0 %}<a href="#"class="glyphicon glyphicon-minus my-a delete"></a>{% endif %}
 						</div>
 						<div class="col-md-2 form-label">
-							{% trans "Assistant coaches" %} <a href="#"class="glyphicon glyphicon-plus my-a add"> </a>{% if t.assistant > 0 %}<a href="#"class="glyphicon glyphicon-minus my-a delete"></a>{% endif %}
+							{% trans "Assistant coaches" %} <a href="{% url 'teams:add_assistant_url' team_id=t.id %}"class="glyphicon glyphicon-plus my-a add"> </a>{% if t.assistant > 0 %}<a href="#"class="glyphicon glyphicon-minus my-a delete"></a>{% endif %}
 						</div>
 					</div>
 					<div class="row">
 					    <div class="col-md-2">
 							{% if t.apo %}
-								<span class="glyphicon glyphicon-ok"></span>
+								<span class="glyphicon glyphicon-ok"></span> {% trans "Yes" %}
 							{% else %}
-								<span class="glyphicon glyphicon-remove"></span>
+								<span class="glyphicon glyphicon-remove"></span> {% trans "No" %}
 							{% endif %}
 					    </div>
 						<div class="col-md-2">
@@ -262,7 +262,7 @@
 					</div>
 
 					<div class="separator"></div>
-					<legend>{% trans "Players" %} - <i>{{ t.size }}/16</i></legend>
+					<legend>{% trans "Players" %} - <i>{{ t.size }}/16</i> <a href="#"class="glyphicon glyphicon-plus my-a add add-player"></a></legend>
 					{% for p in t.player_set.all|dictsort:"number" %}
 						{% if forloop.first %}
 						<div class="row">
@@ -347,12 +347,7 @@
 									<a href="{% url 'teams:delete_player_url' player_id=p.id %}" class="glyphicon glyphicon-trash my-a delete"></a>
 								</div>
 							</div>
-						</div>
-						{% if forloop.last %}
-						<a href="#"class="glyphicon glyphicon-plus my-a add add-player"></a>
-						{% endif %}
-					{% empty %}
-						<a href="#"class="glyphicon glyphicon-plus my-a add add-player"></a>
+						</div>						
 					{% endfor %}
 
 					<legend class="separator"></legend>		
